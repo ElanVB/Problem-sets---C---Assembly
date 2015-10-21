@@ -1,0 +1,21 @@
+19:47:02 **** Incremental Build of configuration HardwareDebug for project uartTest ****
+make -j4 all 
+'Scanning and building file: ../src/r_main.c'
+'Invoking: Scanner and Compiler'
+rl78-elf-gcc -MM -MP -MF "src/r_main.d" -MT"src/r_main.o" -MT"src/r_main.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -x c "../src/r_main.c"
+rl78-elf-gcc -Wa,-adlhn="r_main.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -c -x c -o "src/r_main.o" "../src/r_main.c"
+'Finished scanning and building: ../src/r_main.c'
+
+'Invoking: Linker'
+'Building target:'
+rl78-elf-ld -o "uartTest.x" -T"C:\Users\Elan\Google Drive\Second Year Engineering\E en E\CS semseter 2\Prakties\2015\Prac8\Prakties7_projek\uartTest\HardwareDebug\uartTest_HardwareDebug_auto.gsi" -T"C:\Users\Elan\Google Drive\Second Year Engineering\E en E\CS semseter 2\Prakties\2015\Prac8\Prakties7_projek\uartTest\HardwareDebug\LinkerSubCommand.tmp"    -M=uartTest.map -e_PowerON_Reset -L"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/lib/gcc/rl78-elf//4.8-GNURL78_v14.01" -L"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/lib" --start-group -loptm -loptc -lgcc --end-group
+'Finished building:'
+
+'Invoking: Objcopy'
+rl78-elf-objcopy -O srec   uartTest.x "uartTest.mot"
+'Finished building target:'
+
+'Build complete.'
+
+19:47:03 Build Finished (took 1s.207ms)
+

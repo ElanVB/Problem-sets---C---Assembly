@@ -1,0 +1,352 @@
+   1                             	r8	=	0xffef0
+   2                             	r16	=	0xffee8
+   3                             	r24	=	0xffee0
+   4                             	r9	=	0xffef1
+   5                             	r17	=	0xffee9
+   6                             	r25	=	0xffee1
+   7                             	r10	=	0xffef2
+   8                             	r18	=	0xffeea
+   9                             	r26	=	0xffee2
+  10                             	r11	=	0xffef3
+  11                             	r19	=	0xffeeb
+  12                             	r27	=	0xffee3
+  13                             	r12	=	0xffef4
+  14                             	r20	=	0xffeec
+  15                             	r28	=	0xffee4
+  16                             	r13	=	0xffef5
+  17                             	r21	=	0xffeed
+  18                             	r29	=	0xffee5
+  19                             	r14	=	0xffef6
+  20                             	r22	=	0xffeee
+  21                             	r30	=	0xffee6
+  22                             	r15	=	0xffef7
+  23                             	r23	=	0xffeef
+  24                             	r31	=	0xffee7
+  25                             	.text
+  26                             	.Ltext0:
+  27                             		.global	_transmit
+  28                             	.data
+  29                             		.balign 2
+  32                             	_transmit:
+  33 0000 00 00                   		.zero	2
+  34                             		.global	_oneSec
+  35                             		.balign 2
+  38                             	_oneSec:
+  39 0002 00 00                   		.zero	2
+  40                             		.comm	_uart2RxBuf,16,1
+  41                             		.comm	_uart2RxCnt,2,2
+  42                             		.comm	_uart2RxFlag,1,1
+  43                             		.comm	_uart2TxBuf,16,1
+  44                             		.comm	_uart2TxCnt,2,2
+  45                             		.comm	_uart2TxFlag,1,1
+  46                             		.comm	_uart2RxErrFlag,1,1
+  47                             		.comm	_uart2RxOvrFlag,1,1
+  48                             		.comm	_uart2Status,2,2
+  49                             	.text
+  50                             		.global	_main
+  52                             	_main:
+  53                             	.LFB0:
+  54                             		.file 1 "../src/r_main.c"
+   1:../src/r_main.c **** /**************************************************************************************************
+   2:../src/r_main.c **** * DISCLAIMER
+   3:../src/r_main.c **** * This software is supplied by Renesas Electronics Corporation and is only 
+   4:../src/r_main.c **** * intended for use with Renesas products. No other uses are authorized. This 
+   5:../src/r_main.c **** * software is owned by Renesas Electronics Corporation and is protected under 
+   6:../src/r_main.c **** * all applicable laws, including copyright laws.
+   7:../src/r_main.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING 
+   8:../src/r_main.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT 
+   9:../src/r_main.c **** * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE 
+  10:../src/r_main.c **** * AND NON-INFRINGEMENT.  ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../src/r_main.c **** * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS 
+  12:../src/r_main.c **** * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE 
+  13:../src/r_main.c **** * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR 
+  14:../src/r_main.c **** * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE 
+  15:../src/r_main.c **** * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../src/r_main.c **** * Renesas reserves the right, without notice, to make changes to this software 
+  17:../src/r_main.c **** * and to discontinue the availability of this software.  By using this software, 
+  18:../src/r_main.c **** * you agree to the additional terms and conditions found by accessing the 
+  19:../src/r_main.c **** * following link:
+  20:../src/r_main.c **** * http://www.renesas.com/disclaimer
+  21:../src/r_main.c **** *
+  22:../src/r_main.c **** * Copyright (C) 2011, 2014 Renesas Electronics Corporation. All rights reserved.
+  23:../src/r_main.c **** ***************************************************************************************************
+  24:../src/r_main.c **** 
+  25:../src/r_main.c **** /**************************************************************************************************
+  26:../src/r_main.c **** * File Name    : r_main.c
+  27:../src/r_main.c **** * Version      : CodeGenerator for RL78/G13 V2.02.00.02 [11 Feb 2014]
+  28:../src/r_main.c **** * Device(s)    : R5F100LE
+  29:../src/r_main.c **** * Tool-Chain   : GCCRL78
+  30:../src/r_main.c **** * Description  : This file implements main function.
+  31:../src/r_main.c **** * Creation Date: 10/10/2015
+  32:../src/r_main.c **** ***************************************************************************************************
+  33:../src/r_main.c **** 
+  34:../src/r_main.c **** /**************************************************************************************************
+  35:../src/r_main.c **** Includes
+  36:../src/r_main.c **** ***************************************************************************************************
+  37:../src/r_main.c **** #include "r_cg_macrodriver.h"
+  38:../src/r_main.c **** #include "r_cg_cgc.h"
+  39:../src/r_main.c **** #include "r_cg_port.h"
+  40:../src/r_main.c **** #include "r_cg_serial.h"
+  41:../src/r_main.c **** #include "r_cg_timer.h"
+  42:../src/r_main.c **** /* Start user code for include. Do not edit comment generated here */
+  43:../src/r_main.c **** /* End user code. Do not edit comment generated here */
+  44:../src/r_main.c **** #include "r_cg_userdefine.h"
+  45:../src/r_main.c **** 
+  46:../src/r_main.c **** /**************************************************************************************************
+  47:../src/r_main.c **** Global variables and functions
+  48:../src/r_main.c **** ***************************************************************************************************
+  49:../src/r_main.c **** /* Start user code for global. Do not edit comment generated here */
+  50:../src/r_main.c **** #define	RX_BUF_LEN	16
+  51:../src/r_main.c **** #define	TX_BUF_LEN	16
+  52:../src/r_main.c **** 
+  53:../src/r_main.c **** int transmit = 0;
+  54:../src/r_main.c **** int oneSec = 0;
+  55:../src/r_main.c **** 
+  56:../src/r_main.c **** uint8_t uart2RxBuf[RX_BUF_LEN];
+  57:../src/r_main.c **** uint16_t uart2RxCnt;
+  58:../src/r_main.c **** uint8_t uart2RxFlag;
+  59:../src/r_main.c **** uint8_t uart2TxBuf[TX_BUF_LEN];
+  60:../src/r_main.c **** uint16_t uart2TxCnt;
+  61:../src/r_main.c **** uint8_t uart2TxFlag;
+  62:../src/r_main.c **** uint8_t	uart2RxErrFlag;	// UART2 Receive Error Flag
+  63:../src/r_main.c **** uint8_t uart2RxOvrFlag;	// UART2 Receive Overrun Flag
+  64:../src/r_main.c **** MD_STATUS uart2Status;
+  65:../src/r_main.c **** /* End user code. Do not edit comment generated here */
+  66:../src/r_main.c **** void R_MAIN_UserInit(void);
+  67:../src/r_main.c **** 
+  68:../src/r_main.c **** /**************************************************************************************************
+  69:../src/r_main.c **** * Function Name: main
+  70:../src/r_main.c **** * Description  : This function implements main function.
+  71:../src/r_main.c **** * Arguments    : None
+  72:../src/r_main.c **** * Return Value : None
+  73:../src/r_main.c **** ***************************************************************************************************
+  74:../src/r_main.c **** void main(void)
+  75:../src/r_main.c **** {
+  55                             		.loc 1 75 0
+  56                             		; start of function
+  57                             		; outgoing: 4 bytes
+  58 0000 20 04                   		subw	sp, #4
+  59                             	.LCFI0:
+  76:../src/r_main.c ****     R_MAIN_UserInit();
+  60                             		.loc 1 76 0
+  61 0002 FC 00 00 00             		call	!!%code(_R_MAIN_UserInit)
+  77:../src/r_main.c ****     /* Start user code. Do not edit comment generated here */
+  78:../src/r_main.c **** 
+  79:../src/r_main.c **** 	R_UART2_Create();
+  62                             		.loc 1 79 0
+  63 0006 FC 00 00 00             		call	!!%code(_R_UART2_Create)
+  80:../src/r_main.c **** 	R_UART2_Start();
+  64                             		.loc 1 80 0
+  65 000a FC 00 00 00             		call	!!%code(_R_UART2_Start)
+  81:../src/r_main.c **** 	uart2Status = R_UART2_Receive(&uart2RxBuf[0],1);	// Prime UART2 Rx
+  66                             		.loc 1 81 0
+  67 000e 30 00 00                		movw	ax, #_uart2RxBuf
+  68 0011 B8 00                   		movw	[sp], ax
+  69 0013 E6                      		onew	ax
+  70 0014 B8 02                   		movw	[sp+2], ax
+  71 0016 FC 00 00 00             		call	!!%code(_R_UART2_Receive)
+  72 001a AD F0                   		movw	ax, r8
+  73 001c BF 00 00                		movw	!_uart2Status, ax
+  82:../src/r_main.c **** 
+  83:../src/r_main.c **** 	R_TAU0_Create();
+  74                             		.loc 1 83 0
+  75 001f FC 00 00 00             		call	!!%code(_R_TAU0_Create)
+  84:../src/r_main.c **** 	R_TAU0_Channel0_Start();
+  76                             		.loc 1 84 0
+  77 0023 FC 00 00 00             		call	!!%code(_R_TAU0_Channel0_Start)
+  85:../src/r_main.c **** 
+  86:../src/r_main.c **** 	R_PORT_Create();
+  78                             		.loc 1 86 0
+  79 0027 FC 00 00 00             		call	!!%code(_R_PORT_Create)
+  80                             	.L10:
+  87:../src/r_main.c **** 
+  88:../src/r_main.c **** 	while (1U)
+  89:../src/r_main.c **** 	{
+  90:../src/r_main.c **** 		if(transmit && oneSec)
+  81                             		.loc 1 90 0
+  82 002b AF 00 00                		movw	ax, !_transmit
+  83 002e BD F0                   		movw	r8, ax
+  84 0030 44 00 00                		cmpw	ax, #0 
+  85 0033 61 F8                   		sknz 
+  86 0035 EC 76 00 00             		br	!!.L2
+  87                             		.loc 1 90 0 is_stmt 0 discriminator 1
+  88 0039 AF 00 00                		movw	ax, !_oneSec
+  89 003c BD F0                   		movw	r8, ax
+  90 003e 44 00 00                		cmpw	ax, #0 
+  91 0041 61 F8                   		sknz 
+  92 0043 EC 76 00 00             		br	!!.L2
+  91:../src/r_main.c **** 		{
+  92:../src/r_main.c **** 			uart2Status = R_UART2_Send(uart2TxBuf, 1);
+  93                             		.loc 1 92 0 is_stmt 1
+  94 0047 30 00 00                		movw	ax, #_uart2TxBuf
+  95 004a B8 00                   		movw	[sp], ax
+  96 004c E6                      		onew	ax
+  97 004d B8 02                   		movw	[sp+2], ax
+  98 004f FC 00 00 00             		call	!!%code(_R_UART2_Send)
+  99 0053 AD F0                   		movw	ax, r8
+ 100 0055 BF 00 00                		movw	!_uart2Status, ax
+  93:../src/r_main.c **** 			oneSec = !oneSec;
+ 101                             		.loc 1 93 0
+ 102 0058 AF 00 00                		movw	ax, !_oneSec
+ 103 005b BD F0                   		movw	r8, ax
+ 104 005d CD F2 01                		mov	r10, #1
+ 105 0060 44 00 00                		cmpw	ax, #0 
+ 106 0063 61 F8                   		sknz 
+ 107 0065 EC 6C 00 00             		br	!!.L3
+ 108 0069 CD F2 00                		mov	r10, #0
+ 109                             	.L3:
+ 110 006c 8D F2                   		mov	a, r10
+ 111 006e 70                      		mov	x, a 
+ 112 006f 51 00                   		mov	a, #0
+ 113 0071 BD F0                   		movw	r8, ax
+ 114 0073 BF 00 00                		movw	!_oneSec, ax
+ 115                             	.L2:
+  94:../src/r_main.c **** 		}
+  95:../src/r_main.c **** 
+  96:../src/r_main.c **** 		if(uart2RxFlag)
+ 116                             		.loc 1 96 0
+ 117 0076 8F 00 00                		mov	a, !_uart2RxFlag
+ 118 0079 9D F0                   		mov	r8, a
+ 119 007b D4 F0                   		cmp0	r8 
+ 120 007d 61 F8                   		sknz 
+ 121 007f EC 1A 01 00             		br	!!.L4
+  97:../src/r_main.c **** 		{
+  98:../src/r_main.c **** 			uart2RxFlag = 0U;
+ 122                             		.loc 1 98 0
+ 123 0083 F5 00 00                		clrb	!_uart2RxFlag
+  99:../src/r_main.c **** 
+ 100:../src/r_main.c **** 			if(uart2RxBuf[0] == 'l')
+ 124                             		.loc 1 100 0
+ 125 0086 8F 00 00                		mov	a, !_uart2RxBuf
+ 126 0089 9D F0                   		mov	r8, a
+ 127 008b 4A F0 6C                		cmp	r8, #108 
+ 128 008e 61 E8                   		skz 
+ 129 0090 EC D1 00 00             		br	!!.L5
+ 101:../src/r_main.c **** 				P7_bit.no7 = !P7_bit.no7;
+ 130                             		.loc 1 101 0
+ 131 0094 C9 F0 07 FF             		movw	r8, #-249
+ 132 0098 C9 F2 07 FF             		movw	r10, #-249
+ 133 009c AD F2                   		movw	ax, r10
+ 134 009e BD F4                   		movw	r12, ax
+ 135 00a0 FA F4                   		movw	hl, r12
+ 136 00a2 8B                      		mov	a, [hl]
+ 137 00a3 9D F2                   		mov	r10, a
+ 138 00a5 7A F2 FF                		xor	r10, #-1
+ 139 00a8 8D F2                   		mov	a, r10
+ 140 00aa 31 7A                   		shr	a, 7
+ 141 00ac 9D F2                   		mov	r10, a
+ 142 00ae 31 79                   		shl	a, 7
+ 143 00b0 9D F2                   		mov	r10, a
+ 144 00b2 AD F0                   		movw	ax, r8
+ 145 00b4 BD F4                   		movw	r12, ax
+ 146 00b6 FA F4                   		movw	hl, r12
+ 147 00b8 8B                      		mov	a, [hl]
+ 148 00b9 9D F3                   		mov	r11, a
+ 149 00bb 5A F3 7F                		and	r11, #127
+ 150 00be 8D F3                   		mov	a, r11
+ 151 00c0 6B F2                   		or	a, r10
+ 152 00c2 9D F2                   		mov	r10, a
+ 153 00c4 AD F0                   		movw	ax, r8
+ 154 00c6 DA F4                   		movw	bc, r12
+ 155 00c8 8D F2                   		mov	a, r10
+ 156 00ca 48 00 00                		mov	[bc], a
+ 157 00cd EC 09 01 00             		br	!!.L6
+ 158                             	.L5:
+ 102:../src/r_main.c **** 			else if(uart2RxBuf[0] == 't')
+ 159                             		.loc 1 102 0
+ 160 00d1 8F 00 00                		mov	a, !_uart2RxBuf
+ 161 00d4 9D F0                   		mov	r8, a
+ 162 00d6 4A F0 74                		cmp	r8, #116 
+ 163 00d9 61 E8                   		skz 
+ 164 00db EC 01 01 00             		br	!!.L7
+ 103:../src/r_main.c **** 				transmit = !transmit;
+ 165                             		.loc 1 103 0
+ 166 00df AF 00 00                		movw	ax, !_transmit
+ 167 00e2 BD F0                   		movw	r8, ax
+ 168 00e4 CD F2 01                		mov	r10, #1
+ 169 00e7 44 00 00                		cmpw	ax, #0 
+ 170 00ea 61 F8                   		sknz 
+ 171 00ec EC F3 00 00             		br	!!.L8
+ 172 00f0 CD F2 00                		mov	r10, #0
+ 173                             	.L8:
+ 174 00f3 8D F2                   		mov	a, r10
+ 175 00f5 70                      		mov	x, a 
+ 176 00f6 51 00                   		mov	a, #0
+ 177 00f8 BD F0                   		movw	r8, ax
+ 178 00fa BF 00 00                		movw	!_transmit, ax
+ 179 00fd EC 09 01 00             		br	!!.L6
+ 180                             	.L7:
+ 104:../src/r_main.c **** 			else
+ 105:../src/r_main.c **** 				uart2TxBuf[0] = uart2RxBuf[0];
+ 181                             		.loc 1 105 0
+ 182 0101 8F 00 00                		mov	a, !_uart2RxBuf
+ 183 0104 9D F0                   		mov	r8, a
+ 184 0106 9F 00 00                		mov	!_uart2TxBuf, a
+ 185                             	.L6:
+ 106:../src/r_main.c **** 
+ 107:../src/r_main.c **** 			// Prime UART2 Rx
+ 108:../src/r_main.c **** 			uart2Status = R_UART2_Receive(uart2RxBuf, 1);
+ 186                             		.loc 1 108 0
+ 187 0109 30 00 00                		movw	ax, #_uart2RxBuf
+ 188 010c B8 00                   		movw	[sp], ax
+ 189 010e E6                      		onew	ax
+ 190 010f B8 02                   		movw	[sp+2], ax
+ 191 0111 FC 00 00 00             		call	!!%code(_R_UART2_Receive)
+ 192 0115 AD F0                   		movw	ax, r8
+ 193 0117 BF 00 00                		movw	!_uart2Status, ax
+ 194                             	.L4:
+ 109:../src/r_main.c **** 		}
+ 110:../src/r_main.c **** 
+ 111:../src/r_main.c **** 		//If a character has been transmitted
+ 112:../src/r_main.c **** 		if (uart2TxFlag)
+ 195                             		.loc 1 112 0
+ 196 011a 8F 00 00                		mov	a, !_uart2TxFlag
+ 197 011d 9D F0                   		mov	r8, a
+ 198 011f D4 F0                   		cmp0	r8 
+ 199 0121 61 F8                   		sknz 
+ 200 0123 EC 2E 01 00             		br	!!.L9
+ 113:../src/r_main.c **** 		{
+ 114:../src/r_main.c **** 			// End of UART2 transmit
+ 115:../src/r_main.c **** 			uart2TxFlag = 0U;   // clear tx flag
+ 201                             		.loc 1 115 0
+ 202 0127 F5 00 00                		clrb	!_uart2TxFlag
+ 116:../src/r_main.c **** 		}
+ 117:../src/r_main.c **** 	}
+ 203                             		.loc 1 117 0
+ 204 012a EC 2B 00 00             		br	!!.L10
+ 205                             	.L9:
+ 206 012e EC 2B 00 00             		br	!!.L10
+ 207                             	.LFE0:
+ 209                             		.global	_R_MAIN_UserInit
+ 211                             	_R_MAIN_UserInit:
+ 212                             	.LFB1:
+ 118:../src/r_main.c **** 
+ 119:../src/r_main.c **** 	R_UART2_Stop();
+ 120:../src/r_main.c **** 	R_TAU0_Channel0_Stop();
+ 121:../src/r_main.c **** 	/* End user code. Do not edit comment generated here */
+ 122:../src/r_main.c **** }
+ 123:../src/r_main.c **** 
+ 124:../src/r_main.c **** 
+ 125:../src/r_main.c **** /**************************************************************************************************
+ 126:../src/r_main.c **** * Function Name: R_MAIN_UserInit
+ 127:../src/r_main.c **** * Description  : This function adds user code before implementing main function.
+ 128:../src/r_main.c **** * Arguments    : None
+ 129:../src/r_main.c **** * Return Value : None
+ 130:../src/r_main.c **** ***************************************************************************************************
+ 131:../src/r_main.c **** void R_MAIN_UserInit(void)
+ 132:../src/r_main.c **** {
+ 213                             		.loc 1 132 0
+ 133:../src/r_main.c ****     /* Start user code. Do not edit comment generated here */
+ 134:../src/r_main.c **** 	EI();
+ 214                             		.loc 1 134 0
+ 215                             	 ; 134 "../src/r_main.c" 1
+ 216 0132 71 7A FA                		ei
+ 217                             	 ; 0 "" 2
+ 135:../src/r_main.c **** 	/* End user code. Do not edit comment generated here */
+ 136:../src/r_main.c **** }
+ 218                             		.loc 1 136 0
+ 219 0135 D7                      		ret
+ 220                             	.LFE1:
+ 260                             	.Letext0:
+ 261                             		.file 2 "../src/iodefine.h"
+ 262                             		.file 3 "../src/r_cg_macrodriver.h"

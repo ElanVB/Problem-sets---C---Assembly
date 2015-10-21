@@ -1,0 +1,718 @@
+   1                             	r8	=	0xffef0
+   2                             	r16	=	0xffee8
+   3                             	r24	=	0xffee0
+   4                             	r9	=	0xffef1
+   5                             	r17	=	0xffee9
+   6                             	r25	=	0xffee1
+   7                             	r10	=	0xffef2
+   8                             	r18	=	0xffeea
+   9                             	r26	=	0xffee2
+  10                             	r11	=	0xffef3
+  11                             	r19	=	0xffeeb
+  12                             	r27	=	0xffee3
+  13                             	r12	=	0xffef4
+  14                             	r20	=	0xffeec
+  15                             	r28	=	0xffee4
+  16                             	r13	=	0xffef5
+  17                             	r21	=	0xffeed
+  18                             	r29	=	0xffee5
+  19                             	r14	=	0xffef6
+  20                             	r22	=	0xffeee
+  21                             	r30	=	0xffee6
+  22                             	r15	=	0xffef7
+  23                             	r23	=	0xffeef
+  24                             	r31	=	0xffee7
+  25                             	.text
+  26                             	.Ltext0:
+  27                             		.global	_transmit
+  28                             	.data
+  29                             		.balign 2
+  32                             	_transmit:
+  33 0000 00 00                   		.zero	2
+  34                             		.global	_oneSec
+  35                             		.balign 2
+  38                             	_oneSec:
+  39 0002 00 00                   		.zero	2
+  40                             		.comm	_uart2RxBuf,16,1
+  41                             		.comm	_uart2RxCnt,2,2
+  42                             		.comm	_uart2RxFlag,1,1
+  43                             		.comm	_uart2TxBuf,16,1
+  44                             		.comm	_uart2TxCnt,2,2
+  45                             		.comm	_uart2TxFlag,1,1
+  46                             		.comm	_uart2RxErrFlag,1,1
+  47                             		.comm	_uart2RxOvrFlag,1,1
+  48                             		.comm	_ADC_Read,1,1
+  49                             		.comm	_adc_done_flag,1,1
+  50                             		.comm	_uart2Status,2,2
+  51                             		.global	_counter
+  54                             	_counter:
+  55 0004 00                      		.zero	1
+  56 0005 00                      	.text
+  57                             		.global	_main
+  59                             	_main:
+  60                             	.LFB0:
+  61                             		.file 1 "../src/r_main.c"
+   1:../src/r_main.c **** /**************************************************************************************************
+   2:../src/r_main.c **** * DISCLAIMER
+   3:../src/r_main.c **** * This software is supplied by Renesas Electronics Corporation and is only 
+   4:../src/r_main.c **** * intended for use with Renesas products. No other uses are authorized. This 
+   5:../src/r_main.c **** * software is owned by Renesas Electronics Corporation and is protected under 
+   6:../src/r_main.c **** * all applicable laws, including copyright laws.
+   7:../src/r_main.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING 
+   8:../src/r_main.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT 
+   9:../src/r_main.c **** * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE 
+  10:../src/r_main.c **** * AND NON-INFRINGEMENT.  ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../src/r_main.c **** * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS 
+  12:../src/r_main.c **** * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE 
+  13:../src/r_main.c **** * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR 
+  14:../src/r_main.c **** * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE 
+  15:../src/r_main.c **** * BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  16:../src/r_main.c **** * Renesas reserves the right, without notice, to make changes to this software 
+  17:../src/r_main.c **** * and to discontinue the availability of this software.  By using this software, 
+  18:../src/r_main.c **** * you agree to the additional terms and conditions found by accessing the 
+  19:../src/r_main.c **** * following link:
+  20:../src/r_main.c **** * http://www.renesas.com/disclaimer
+  21:../src/r_main.c **** *
+  22:../src/r_main.c **** * Copyright (C) 2011, 2014 Renesas Electronics Corporation. All rights reserved.
+  23:../src/r_main.c **** ***************************************************************************************************
+  24:../src/r_main.c **** 
+  25:../src/r_main.c **** /**************************************************************************************************
+  26:../src/r_main.c **** * File Name    : r_main.c
+  27:../src/r_main.c **** * Version      : CodeGenerator for RL78/G13 V2.02.00.02 [11 Feb 2014]
+  28:../src/r_main.c **** * Device(s)    : R5F100LE
+  29:../src/r_main.c **** * Tool-Chain   : GCCRL78
+  30:../src/r_main.c **** * Description  : This file implements main function.
+  31:../src/r_main.c **** * Creation Date: 17/10/2015
+  32:../src/r_main.c **** ***************************************************************************************************
+  33:../src/r_main.c **** 
+  34:../src/r_main.c **** /**************************************************************************************************
+  35:../src/r_main.c **** Includes
+  36:../src/r_main.c **** ***************************************************************************************************
+  37:../src/r_main.c **** #include "r_cg_macrodriver.h"
+  38:../src/r_main.c **** #include "r_cg_cgc.h"
+  39:../src/r_main.c **** #include "r_cg_port.h"
+  40:../src/r_main.c **** #include "r_cg_serial.h"
+  41:../src/r_main.c **** #include "r_cg_adc.h"
+  42:../src/r_main.c **** #include "r_cg_timer.h"
+  43:../src/r_main.c **** /* Start user code for include. Do not edit comment generated here */
+  44:../src/r_main.c **** #include <stdio.h>
+  45:../src/r_main.c **** #include <stdlib.h>
+  46:../src/r_main.c **** #include <string.h>
+  47:../src/r_main.c **** /* End user code. Do not edit comment generated here */
+  48:../src/r_main.c **** #include "r_cg_userdefine.h"
+  49:../src/r_main.c **** 
+  50:../src/r_main.c **** /**************************************************************************************************
+  51:../src/r_main.c **** Global variables and functions
+  52:../src/r_main.c **** ***************************************************************************************************
+  53:../src/r_main.c **** /* Start user code for global. Do not edit comment generated here */
+  54:../src/r_main.c **** #define	RX_BUF_LEN	16
+  55:../src/r_main.c **** #define	TX_BUF_LEN	16
+  56:../src/r_main.c **** 
+  57:../src/r_main.c **** int transmit = 0;
+  58:../src/r_main.c **** int oneSec = 0;
+  59:../src/r_main.c **** 
+  60:../src/r_main.c **** uint8_t uart2RxBuf[RX_BUF_LEN];
+  61:../src/r_main.c **** uint16_t uart2RxCnt;
+  62:../src/r_main.c **** uint8_t uart2RxFlag;
+  63:../src/r_main.c **** uint8_t uart2TxBuf[TX_BUF_LEN];
+  64:../src/r_main.c **** uint16_t uart2TxCnt;
+  65:../src/r_main.c **** uint8_t uart2TxFlag;
+  66:../src/r_main.c **** uint8_t	uart2RxErrFlag;	// UART2 Receive Error Flag
+  67:../src/r_main.c **** uint8_t uart2RxOvrFlag;	// UART2 Receive Overrun Flag
+  68:../src/r_main.c **** uint8_t ADC_Read;
+  69:../src/r_main.c **** uint8_t adc_done_flag;
+  70:../src/r_main.c **** MD_STATUS uart2Status;
+  71:../src/r_main.c **** 
+  72:../src/r_main.c **** uint8_t counter  = 0;
+  73:../src/r_main.c **** 
+  74:../src/r_main.c **** int convertToNum(uint8_t* buf);
+  75:../src/r_main.c **** double log10(double x);
+  76:../src/r_main.c **** /* End user code. Do not edit comment generated here */
+  77:../src/r_main.c **** void R_MAIN_UserInit(void);
+  78:../src/r_main.c **** 
+  79:../src/r_main.c **** /**************************************************************************************************
+  80:../src/r_main.c **** * Function Name: main
+  81:../src/r_main.c **** * Description  : This function implements main function.
+  82:../src/r_main.c **** * Arguments    : None
+  83:../src/r_main.c **** * Return Value : None
+  84:../src/r_main.c **** ***************************************************************************************************
+  85:../src/r_main.c **** void main(void)
+  86:../src/r_main.c **** {
+  62                             		.loc 1 86 0
+  63                             		; start of function
+  64                             		; locals: 4 bytes
+  65                             		; outgoing: 4 bytes
+  66 0000 20 08                   		subw	sp, #8
+  67                             	.LCFI0:
+  87:../src/r_main.c ****     R_MAIN_UserInit();
+  68                             		.loc 1 87 0
+  69 0002 FC 00 00 00             		call	!!%code(_R_MAIN_UserInit)
+  88:../src/r_main.c ****     /* Start user code. Do not edit comment generated here */
+  89:../src/r_main.c **** 
+  90:../src/r_main.c ****     int transmit_count = 0;
+  70                             		.loc 1 90 0
+  71 0006 F6                      		clrw	ax
+  72 0007 B8 06                   		movw	[sp+6], ax
+  91:../src/r_main.c **** 	R_UART2_Create();
+  73                             		.loc 1 91 0
+  74 0009 FC 00 00 00             		call	!!%code(_R_UART2_Create)
+  92:../src/r_main.c **** 	R_UART2_Start();
+  75                             		.loc 1 92 0
+  76 000d FC 00 00 00             		call	!!%code(_R_UART2_Start)
+  93:../src/r_main.c **** 	uart2Status = R_UART2_Receive(&uart2RxBuf[0],1);	// Prime UART2 Rx
+  77                             		.loc 1 93 0
+  78 0011 30 00 00                		movw	ax, #_uart2RxBuf
+  79 0014 B8 00                   		movw	[sp], ax
+  80 0016 E6                      		onew	ax
+  81 0017 B8 02                   		movw	[sp+2], ax
+  82 0019 FC 00 00 00             		call	!!%code(_R_UART2_Receive)
+  83 001d AD F0                   		movw	ax, r8
+  84 001f BF 00 00                		movw	!_uart2Status, ax
+  94:../src/r_main.c **** 
+  95:../src/r_main.c **** 	R_TAU0_Create();
+  85                             		.loc 1 95 0
+  86 0022 FC 00 00 00             		call	!!%code(_R_TAU0_Create)
+  96:../src/r_main.c **** 	R_TAU0_Channel0_Start();
+  87                             		.loc 1 96 0
+  88 0026 FC 00 00 00             		call	!!%code(_R_TAU0_Channel0_Start)
+  97:../src/r_main.c **** 
+  98:../src/r_main.c **** 	R_PORT_Create();
+  89                             		.loc 1 98 0
+  90 002a FC 00 00 00             		call	!!%code(_R_PORT_Create)
+  99:../src/r_main.c **** 
+ 100:../src/r_main.c **** 	R_ADC_Create();
+  91                             		.loc 1 100 0
+  92 002e FC 00 00 00             		call	!!%code(_R_ADC_Create)
+  93                             	.L14:
+ 101:../src/r_main.c **** 
+ 102:../src/r_main.c **** 	while (1U)
+ 103:../src/r_main.c **** 	{
+ 104:../src/r_main.c **** 		if(oneSec)
+  94                             		.loc 1 104 0
+  95 0032 AF 00 00                		movw	ax, !_oneSec
+  96 0035 BD F0                   		movw	r8, ax
+  97 0037 44 00 00                		cmpw	ax, #0 
+  98 003a 61 F8                   		sknz 
+  99 003c EC 89 00 00             		br	!!.L2
+ 105:../src/r_main.c **** 		{
+ 106:../src/r_main.c **** 			if(transmit)
+ 100                             		.loc 1 106 0
+ 101 0040 AF 00 00                		movw	ax, !_transmit
+ 102 0043 BD F0                   		movw	r8, ax
+ 103 0045 44 00 00                		cmpw	ax, #0 
+ 104 0048 61 F8                   		sknz 
+ 105 004a EC 5F 00 00             		br	!!.L3
+ 107:../src/r_main.c **** 				uart2Status = R_UART2_Send(uart2TxBuf, 1);
+ 106                             		.loc 1 107 0
+ 107 004e 30 00 00                		movw	ax, #_uart2TxBuf
+ 108 0051 B8 00                   		movw	[sp], ax
+ 109 0053 E6                      		onew	ax
+ 110 0054 B8 02                   		movw	[sp+2], ax
+ 111 0056 FC 00 00 00             		call	!!%code(_R_UART2_Send)
+ 112 005a AD F0                   		movw	ax, r8
+ 113 005c BF 00 00                		movw	!_uart2Status, ax
+ 114                             	.L3:
+ 108:../src/r_main.c **** 
+ 109:../src/r_main.c **** 			counter++;
+ 115                             		.loc 1 109 0
+ 116 005f 8F 00 00                		mov	a, !_counter
+ 117 0062 9D F0                   		mov	r8, a
+ 118 0064 A4 F0                   		inc	r8
+ 119 0066 8D F0                   		mov	a, r8
+ 120 0068 9F 00 00                		mov	!_counter, a
+ 110:../src/r_main.c **** 			oneSec = !oneSec;
+ 121                             		.loc 1 110 0
+ 122 006b AF 00 00                		movw	ax, !_oneSec
+ 123 006e BD F0                   		movw	r8, ax
+ 124 0070 CD F2 01                		mov	r10, #1
+ 125 0073 44 00 00                		cmpw	ax, #0 
+ 126 0076 61 F8                   		sknz 
+ 127 0078 EC 7F 00 00             		br	!!.L4
+ 128 007c CD F2 00                		mov	r10, #0
+ 129                             	.L4:
+ 130 007f 8D F2                   		mov	a, r10
+ 131 0081 70                      		mov	x, a 
+ 132 0082 51 00                   		mov	a, #0
+ 133 0084 BD F0                   		movw	r8, ax
+ 134 0086 BF 00 00                		movw	!_oneSec, ax
+ 135                             	.L2:
+ 111:../src/r_main.c **** 		}
+ 112:../src/r_main.c **** 
+ 113:../src/r_main.c **** 		if(uart2RxFlag)
+ 136                             		.loc 1 113 0
+ 137 0089 8F 00 00                		mov	a, !_uart2RxFlag
+ 138 008c 9D F0                   		mov	r8, a
+ 139 008e D4 F0                   		cmp0	r8 
+ 140 0090 61 F8                   		sknz 
+ 141 0092 EC D6 01 00             		br	!!.L5
+ 114:../src/r_main.c **** 		{
+ 115:../src/r_main.c **** 			uart2RxFlag = 0U;
+ 142                             		.loc 1 115 0
+ 143 0096 F5 00 00                		clrb	!_uart2RxFlag
+ 116:../src/r_main.c **** 
+ 117:../src/r_main.c **** 			if(uart2RxBuf[0] == 'b')
+ 144                             		.loc 1 117 0
+ 145 0099 8F 00 00                		mov	a, !_uart2RxBuf
+ 146 009c 9D F0                   		mov	r8, a
+ 147 009e 4A F0 62                		cmp	r8, #98 
+ 148 00a1 61 E8                   		skz 
+ 149 00a3 EC D4 00 00             		br	!!.L6
+ 118:../src/r_main.c **** 			{
+ 119:../src/r_main.c **** 				uart2TxBuf[0] = counter;
+ 150                             		.loc 1 119 0
+ 151 00a7 8F 00 00                		mov	a, !_counter
+ 152 00aa 9D F0                   		mov	r8, a
+ 153 00ac 9F 00 00                		mov	!_uart2TxBuf, a
+ 120:../src/r_main.c **** 				transmit_count = convertToNum(uart2TxBuf); //convert the ASCII symbols to integers instead.
+ 154                             		.loc 1 120 0
+ 155 00af 30 00 00                		movw	ax, #_uart2TxBuf
+ 156 00b2 B8 00                   		movw	[sp], ax
+ 157 00b4 FC 00 00 00             		call	!!%code(_convertToNum)
+ 158 00b8 AD F0                   		movw	ax, r8
+ 159 00ba B8 06                   		movw	[sp+6], ax
+ 121:../src/r_main.c **** 				uart2Status = R_UART2_Send(uart2TxBuf, transmit_count);
+ 160                             		.loc 1 121 0
+ 161 00bc BD F0                   		movw	r8, ax
+ 162 00be 30 00 00                		movw	ax, #_uart2TxBuf
+ 163 00c1 B8 00                   		movw	[sp], ax
+ 164 00c3 AD F0                   		movw	ax, r8
+ 165 00c5 B8 02                   		movw	[sp+2], ax
+ 166 00c7 FC 00 00 00             		call	!!%code(_R_UART2_Send)
+ 167 00cb AD F0                   		movw	ax, r8
+ 168 00cd BF 00 00                		movw	!_uart2Status, ax
+ 169 00d0 EC C5 01 00             		br	!!.L7
+ 170                             	.L6:
+ 122:../src/r_main.c **** 			}
+ 123:../src/r_main.c **** 			else
+ 124:../src/r_main.c **** 			if(uart2RxBuf[0] == 'l')
+ 171                             		.loc 1 124 0
+ 172 00d4 8F 00 00                		mov	a, !_uart2RxBuf
+ 173 00d7 9D F0                   		mov	r8, a
+ 174 00d9 4A F0 6C                		cmp	r8, #108 
+ 175 00dc 61 E8                   		skz 
+ 176 00de EC 1F 01 00             		br	!!.L8
+ 125:../src/r_main.c **** 				P7_bit.no7 = !P7_bit.no7;
+ 177                             		.loc 1 125 0
+ 178 00e2 C9 F0 07 FF             		movw	r8, #-249
+ 179 00e6 C9 F2 07 FF             		movw	r10, #-249
+ 180 00ea AD F2                   		movw	ax, r10
+ 181 00ec BD F4                   		movw	r12, ax
+ 182 00ee FA F4                   		movw	hl, r12
+ 183 00f0 8B                      		mov	a, [hl]
+ 184 00f1 9D F2                   		mov	r10, a
+ 185 00f3 7A F2 FF                		xor	r10, #-1
+ 186 00f6 8D F2                   		mov	a, r10
+ 187 00f8 31 7A                   		shr	a, 7
+ 188 00fa 9D F2                   		mov	r10, a
+ 189 00fc 31 79                   		shl	a, 7
+ 190 00fe 9D F2                   		mov	r10, a
+ 191 0100 AD F0                   		movw	ax, r8
+ 192 0102 BD F4                   		movw	r12, ax
+ 193 0104 FA F4                   		movw	hl, r12
+ 194 0106 8B                      		mov	a, [hl]
+ 195 0107 9D F3                   		mov	r11, a
+ 196 0109 5A F3 7F                		and	r11, #127
+ 197 010c 8D F3                   		mov	a, r11
+ 198 010e 6B F2                   		or	a, r10
+ 199 0110 9D F2                   		mov	r10, a
+ 200 0112 AD F0                   		movw	ax, r8
+ 201 0114 DA F4                   		movw	bc, r12
+ 202 0116 8D F2                   		mov	a, r10
+ 203 0118 48 00 00                		mov	[bc], a
+ 204 011b EC C5 01 00             		br	!!.L7
+ 205                             	.L8:
+ 126:../src/r_main.c **** 			else
+ 127:../src/r_main.c **** 			if(uart2RxBuf[0] == 'a')
+ 206                             		.loc 1 127 0
+ 207 011f 8F 00 00                		mov	a, !_uart2RxBuf
+ 208 0122 9D F0                   		mov	r8, a
+ 209 0124 4A F0 61                		cmp	r8, #97 
+ 210 0127 61 E8                   		skz 
+ 211 0129 EC 8D 01 00             		br	!!.L9
+ 212                             	.LBB2:
+ 128:../src/r_main.c **** 			{
+ 129:../src/r_main.c **** 				uint8_t adcvalue = 0;
+ 213                             		.loc 1 129 0
+ 214 012d C8 05 00                		mov	[sp+5], #0
+ 130:../src/r_main.c **** 				R_ADC_Start();
+ 215                             		.loc 1 130 0
+ 216 0130 FC 00 00 00             		call	!!%code(_R_ADC_Start)
+ 131:../src/r_main.c **** 				while(!adc_done_flag); //wait for interrupt
+ 217                             		.loc 1 131 0
+ 218 0134 00                      		nop
+ 219                             	.L10:
+ 220                             		.loc 1 131 0 is_stmt 0 discriminator 1
+ 221 0135 8F 00 00                		mov	a, !_adc_done_flag
+ 222 0138 9D F0                   		mov	r8, a
+ 223 013a D4 F0                   		cmp0	r8 
+ 224 013c 61 F8                   		sknz 
+ 225 013e EC 35 01 00             		br	!!.L10
+ 132:../src/r_main.c **** 				adc_done_flag = 0;
+ 226                             		.loc 1 132 0 is_stmt 1
+ 227 0142 F5 00 00                		clrb	!_adc_done_flag
+ 133:../src/r_main.c **** 				R_ADC_Get_Result_8bit(&adcvalue);
+ 228                             		.loc 1 133 0
+ 229 0145 C9 F0 08 00             		movw	r8, #8
+ 230 0149 AE F8                   		movw	ax, sp
+ 231 014b BD F0                   		movw	r8, ax
+ 232 014d 04 08 00                		addw	ax, #8
+ 233 0150 BD F0                   		movw	r8, ax
+ 234 0152 04 FD FF                		addw	ax, #-3
+ 235 0155 B8 00                   		movw	[sp], ax
+ 236 0157 FC 00 00 00             		call	!!%code(_R_ADC_Get_Result_8bit)
+ 134:../src/r_main.c **** 				uart2TxBuf[0] = adcvalue;
+ 237                             		.loc 1 134 0
+ 238 015b 88 05                   		mov	a, [sp+5]
+ 239 015d 9D F0                   		mov	r8, a
+ 240 015f 9F 00 00                		mov	!_uart2TxBuf, a
+ 135:../src/r_main.c **** 				transmit_count = convertToNum(uart2TxBuf); //convert the ASCII symbols to integers instead.
+ 241                             		.loc 1 135 0
+ 242 0162 30 00 00                		movw	ax, #_uart2TxBuf
+ 243 0165 B8 00                   		movw	[sp], ax
+ 244 0167 FC 00 00 00             		call	!!%code(_convertToNum)
+ 245 016b AD F0                   		movw	ax, r8
+ 246 016d B8 06                   		movw	[sp+6], ax
+ 136:../src/r_main.c **** 				R_ADC_Stop();
+ 247                             		.loc 1 136 0
+ 248 016f FC 00 00 00             		call	!!%code(_R_ADC_Stop)
+ 137:../src/r_main.c **** 				uart2Status = R_UART2_Send(uart2TxBuf, transmit_count);
+ 249                             		.loc 1 137 0
+ 250 0173 A8 06                   		movw	ax, [sp+6]
+ 251 0175 BD F0                   		movw	r8, ax
+ 252 0177 30 00 00                		movw	ax, #_uart2TxBuf
+ 253 017a B8 00                   		movw	[sp], ax
+ 254 017c AD F0                   		movw	ax, r8
+ 255 017e B8 02                   		movw	[sp+2], ax
+ 256 0180 FC 00 00 00             		call	!!%code(_R_UART2_Send)
+ 257 0184 AD F0                   		movw	ax, r8
+ 258 0186 BF 00 00                		movw	!_uart2Status, ax
+ 259                             	.LBE2:
+ 260 0189 EC C5 01 00             		br	!!.L7
+ 261                             	.L9:
+ 138:../src/r_main.c **** 			}
+ 139:../src/r_main.c **** 			else
+ 140:../src/r_main.c **** 			if(uart2RxBuf[0] == 't')
+ 262                             		.loc 1 140 0
+ 263 018d 8F 00 00                		mov	a, !_uart2RxBuf
+ 264 0190 9D F0                   		mov	r8, a
+ 265 0192 4A F0 74                		cmp	r8, #116 
+ 266 0195 61 E8                   		skz 
+ 267 0197 EC BD 01 00             		br	!!.L11
+ 141:../src/r_main.c **** 				transmit = !transmit;
+ 268                             		.loc 1 141 0
+ 269 019b AF 00 00                		movw	ax, !_transmit
+ 270 019e BD F0                   		movw	r8, ax
+ 271 01a0 CD F2 01                		mov	r10, #1
+ 272 01a3 44 00 00                		cmpw	ax, #0 
+ 273 01a6 61 F8                   		sknz 
+ 274 01a8 EC AF 01 00             		br	!!.L12
+ 275 01ac CD F2 00                		mov	r10, #0
+ 276                             	.L12:
+ 277 01af 8D F2                   		mov	a, r10
+ 278 01b1 70                      		mov	x, a 
+ 279 01b2 51 00                   		mov	a, #0
+ 280 01b4 BD F0                   		movw	r8, ax
+ 281 01b6 BF 00 00                		movw	!_transmit, ax
+ 282 01b9 EC C5 01 00             		br	!!.L7
+ 283                             	.L11:
+ 142:../src/r_main.c **** 			else
+ 143:../src/r_main.c **** 				uart2TxBuf[0] = uart2RxBuf[0];
+ 284                             		.loc 1 143 0
+ 285 01bd 8F 00 00                		mov	a, !_uart2RxBuf
+ 286 01c0 9D F0                   		mov	r8, a
+ 287 01c2 9F 00 00                		mov	!_uart2TxBuf, a
+ 288                             	.L7:
+ 144:../src/r_main.c **** 
+ 145:../src/r_main.c **** 			// Prime UART2 Rx
+ 146:../src/r_main.c **** 			uart2Status = R_UART2_Receive(uart2RxBuf, 1);
+ 289                             		.loc 1 146 0
+ 290 01c5 30 00 00                		movw	ax, #_uart2RxBuf
+ 291 01c8 B8 00                   		movw	[sp], ax
+ 292 01ca E6                      		onew	ax
+ 293 01cb B8 02                   		movw	[sp+2], ax
+ 294 01cd FC 00 00 00             		call	!!%code(_R_UART2_Receive)
+ 295 01d1 AD F0                   		movw	ax, r8
+ 296 01d3 BF 00 00                		movw	!_uart2Status, ax
+ 297                             	.L5:
+ 147:../src/r_main.c **** 		}
+ 148:../src/r_main.c **** 
+ 149:../src/r_main.c **** 		//If a character has been transmitted
+ 150:../src/r_main.c **** 		if (uart2TxFlag)
+ 298                             		.loc 1 150 0
+ 299 01d6 8F 00 00                		mov	a, !_uart2TxFlag
+ 300 01d9 9D F0                   		mov	r8, a
+ 301 01db D4 F0                   		cmp0	r8 
+ 302 01dd 61 F8                   		sknz 
+ 303 01df EC EA 01 00             		br	!!.L13
+ 151:../src/r_main.c **** 		{
+ 152:../src/r_main.c **** 			// End of UART2 transmit
+ 153:../src/r_main.c **** 			uart2TxFlag = 0U;   // clear tx flag
+ 304                             		.loc 1 153 0
+ 305 01e3 F5 00 00                		clrb	!_uart2TxFlag
+ 154:../src/r_main.c **** 		}
+ 155:../src/r_main.c **** 	}
+ 306                             		.loc 1 155 0
+ 307 01e6 EC 32 00 00             		br	!!.L14
+ 308                             	.L13:
+ 309 01ea EC 32 00 00             		br	!!.L14
+ 310                             	.LFE0:
+ 312                             		.global	_R_MAIN_UserInit
+ 314                             	_R_MAIN_UserInit:
+ 315                             	.LFB1:
+ 156:../src/r_main.c **** 
+ 157:../src/r_main.c **** 	R_UART2_Stop();
+ 158:../src/r_main.c **** 	R_TAU0_Channel0_Stop();
+ 159:../src/r_main.c **** 	//R_ADC_Stop();
+ 160:../src/r_main.c **** 	/* End user code. Do not edit comment generated here */
+ 161:../src/r_main.c **** }
+ 162:../src/r_main.c **** 
+ 163:../src/r_main.c **** 
+ 164:../src/r_main.c **** /**************************************************************************************************
+ 165:../src/r_main.c **** * Function Name: R_MAIN_UserInit
+ 166:../src/r_main.c **** * Description  : This function adds user code before implementing main function.
+ 167:../src/r_main.c **** * Arguments    : None
+ 168:../src/r_main.c **** * Return Value : None
+ 169:../src/r_main.c **** ***************************************************************************************************
+ 170:../src/r_main.c **** void R_MAIN_UserInit(void)
+ 171:../src/r_main.c **** {
+ 316                             		.loc 1 171 0
+ 172:../src/r_main.c ****     /* Start user code. Do not edit comment generated here */
+ 173:../src/r_main.c **** 	EI();
+ 317                             		.loc 1 173 0
+ 318                             	 ; 173 "../src/r_main.c" 1
+ 319 01ee 71 7A FA                		ei
+ 320                             	 ; 0 "" 2
+ 174:../src/r_main.c **** 	/* End user code. Do not edit comment generated here */
+ 175:../src/r_main.c **** }
+ 321                             		.loc 1 175 0
+ 322 01f1 D7                      		ret
+ 323                             	.LFE1:
+ 325                             		.section	.rodata
+ 326                             	.LC0:
+ 327 0000 25 64 00                		.string	"%d"
+ 328                             		.global	___floatsisf
+ 329                             		.global	___fixsfsi
+ 330                             	.text
+ 331                             		.global	_convertToNum
+ 333                             	_convertToNum:
+ 334                             	.LFB2:
+ 176:../src/r_main.c **** 
+ 177:../src/r_main.c **** /* Start user code for adding. Do not edit comment generated here */
+ 178:../src/r_main.c **** //I didnt like that the counter or resister values were in ASCCI chars so I wrote this function to 
+ 179:../src/r_main.c **** int convertToNum(uint8_t* buf)
+ 180:../src/r_main.c **** {
+ 335                             		.loc 1 180 0
+ 336                             		; start of function
+ 337                             		; locals: 24 bytes
+ 338                             		; outgoing: 6 bytes
+ 339 01f2 20 1E                   		subw	sp, #30
+ 340                             	.LCFI1:
+ 181:../src/r_main.c **** 	int num, result = 0, count = 0;
+ 341                             		.loc 1 181 0
+ 342 01f4 F6                      		clrw	ax
+ 343 01f5 B8 1A                   		movw	[sp+26], ax
+ 344 01f7 F6                      		clrw	ax
+ 345 01f8 B8 1C                   		movw	[sp+28], ax
+ 182:../src/r_main.c **** 	char * string = malloc(sizeof(char) * 3);
+ 346                             		.loc 1 182 0
+ 347 01fa 30 03 00                		movw	ax, #3
+ 348 01fd B8 00                   		movw	[sp], ax
+ 349 01ff FC 00 00 00             		call	!!%code(_malloc)
+ 350 0203 AD F0                   		movw	ax, r8
+ 351 0205 B8 18                   		movw	[sp+24], ax
+ 183:../src/r_main.c **** 	char temp = buf[0];
+ 352                             		.loc 1 183 0
+ 353 0207 A8 22                   		movw	ax, [sp+34]
+ 354 0209 BD F0                   		movw	r8, ax
+ 355 020b BD F2                   		movw	r10, ax
+ 356 020d FA F2                   		movw	hl, r10
+ 357 020f 8B                      		mov	a, [hl]
+ 358 0210 9D F0                   		mov	r8, a
+ 359 0212 98 17                   		mov	[sp+23], a
+ 184:../src/r_main.c **** 	buf[2] = buf[1] = buf[0] = '0';
+ 360                             		.loc 1 184 0
+ 361 0214 A8 22                   		movw	ax, [sp+34]
+ 362 0216 04 02 00                		addw	ax, #2
+ 363 0219 BD F4                   		movw	r12, ax
+ 364 021b A8 22                   		movw	ax, [sp+34]
+ 365 021d A1                      		incw	ax
+ 366 021e BD F0                   		movw	r8, ax
+ 367 0220 A8 22                   		movw	ax, [sp+34]
+ 368 0222 BD F2                   		movw	r10, ax
+ 369 0224 BD F6                   		movw	r14, ax
+ 370 0226 DA F6                   		movw	bc, r14
+ 371 0228 51 30                   		mov	a, #48
+ 372 022a 48 00 00                		mov	[bc], a
+ 373 022d A8 22                   		movw	ax, [sp+34]
+ 374 022f BD F2                   		movw	r10, ax
+ 375 0231 BD F6                   		movw	r14, ax
+ 376 0233 FA F6                   		movw	hl, r14
+ 377 0235 8B                      		mov	a, [hl]
+ 378 0236 9D F2                   		mov	r10, a
+ 379 0238 AD F0                   		movw	ax, r8
+ 380 023a BD F6                   		movw	r14, ax
+ 381 023c DA F6                   		movw	bc, r14
+ 382 023e 8D F2                   		mov	a, r10
+ 383 0240 48 00 00                		mov	[bc], a
+ 384 0243 AD F0                   		movw	ax, r8
+ 385 0245 BD F2                   		movw	r10, ax
+ 386 0247 FA F2                   		movw	hl, r10
+ 387 0249 8B                      		mov	a, [hl]
+ 388 024a 9D F0                   		mov	r8, a
+ 389 024c AD F4                   		movw	ax, r12
+ 390 024e BD F6                   		movw	r14, ax
+ 391 0250 DA F6                   		movw	bc, r14
+ 392 0252 8D F0                   		mov	a, r8
+ 393 0254 48 00 00                		mov	[bc], a
+ 185:../src/r_main.c **** 
+ 186:../src/r_main.c **** 	num = (int) temp;
+ 394                             		.loc 1 186 0
+ 395 0257 88 17                   		mov	a, [sp+23]
+ 396 0259 70                      		mov	x, a 
+ 397 025a 51 00                   		mov	a, #0
+ 398 025c B8 14                   		movw	[sp+20], ax
+ 187:../src/r_main.c **** 	sprintf(string, "%d", num);
+ 399                             		.loc 1 187 0
+ 400 025e A8 18                   		movw	ax, [sp+24]
+ 401 0260 BD F0                   		movw	r8, ax
+ 402 0262 B8 00                   		movw	[sp], ax
+ 403 0264 30 00 00                		movw	ax, #.LC0
+ 404 0267 B8 02                   		movw	[sp+2], ax
+ 405 0269 A8 14                   		movw	ax, [sp+20]
+ 406 026b BD F0                   		movw	r8, ax
+ 407 026d B8 04                   		movw	[sp+4], ax
+ 408 026f FC 00 00 00             		call	!!%code(_sprintf)
+ 188:../src/r_main.c **** 
+ 189:../src/r_main.c **** 	result = (int) log10((double) num) + 1;
+ 409                             		.loc 1 189 0
+ 410 0273 A8 14                   		movw	ax, [sp+20]
+ 411 0275 BD F0                   		movw	r8, ax
+ 412 0277 B8 0A                   		movw	[sp+10], ax
+ 413 0279 BD F2                   		movw	r10, ax
+ 414 027b B8 0C                   		movw	[sp+12], ax
+ 415 027d 88 0B                   		mov	a, [sp+11]
+ 416 027f 31 7B                   		sar	a, 7
+ 417 0281 9D F0                   		mov	r8, a
+ 418 0283 98 0E                   		mov	[sp+14], a
+ 419 0285 98 0F                   		mov	[sp+15], a
+ 420 0287 A8 0C                   		movw	ax, [sp+12]
+ 421 0289 BD F4                   		movw	r12, ax
+ 422 028b B8 00                   		movw	[sp], ax
+ 423 028d A8 0E                   		movw	ax, [sp+14]
+ 424 028f BD F6                   		movw	r14, ax
+ 425 0291 B8 02                   		movw	[sp+2], ax
+ 426 0293 FC 00 00 00             		call	!!___floatsisf
+ 427 0297 8D F0                   		mov	a, r8
+ 428 0299 9D F4                   		mov	r12, a
+ 429 029b 8D F1                   		mov	a, r9
+ 430 029d 9D F5                   		mov	r13, a
+ 431 029f 8D F2                   		mov	a, r10
+ 432 02a1 9D F6                   		mov	r14, a
+ 433 02a3 8D F3                   		mov	a, r11
+ 434 02a5 9D F7                   		mov	r15, a
+ 435 02a7 8D F4                   		mov	a, r12
+ 436 02a9 98 00                   		mov	[sp], a
+ 437 02ab 8D F5                   		mov	a, r13
+ 438 02ad 98 01                   		mov	[sp+1], a
+ 439 02af 8D F6                   		mov	a, r14
+ 440 02b1 98 02                   		mov	[sp+2], a
+ 441 02b3 8D F7                   		mov	a, r15
+ 442 02b5 98 03                   		mov	[sp+3], a
+ 443 02b7 FC 00 00 00             		call	!!%code(_log10)
+ 444 02bb 8D F0                   		mov	a, r8
+ 445 02bd 9D F4                   		mov	r12, a
+ 446 02bf 8D F1                   		mov	a, r9
+ 447 02c1 9D F5                   		mov	r13, a
+ 448 02c3 8D F2                   		mov	a, r10
+ 449 02c5 9D F6                   		mov	r14, a
+ 450 02c7 8D F3                   		mov	a, r11
+ 451 02c9 9D F7                   		mov	r15, a
+ 452 02cb 8D F4                   		mov	a, r12
+ 453 02cd 98 00                   		mov	[sp], a
+ 454 02cf 8D F5                   		mov	a, r13
+ 455 02d1 98 01                   		mov	[sp+1], a
+ 456 02d3 8D F6                   		mov	a, r14
+ 457 02d5 98 02                   		mov	[sp+2], a
+ 458 02d7 8D F7                   		mov	a, r15
+ 459 02d9 98 03                   		mov	[sp+3], a
+ 460 02db FC 00 00 00             		call	!!___fixsfsi
+ 461 02df AD F0                   		movw	ax, r8
+ 462 02e1 B8 06                   		movw	[sp+6], ax
+ 463 02e3 AD F2                   		movw	ax, r10
+ 464 02e5 B8 08                   		movw	[sp+8], ax
+ 465 02e7 A8 06                   		movw	ax, [sp+6]
+ 466 02e9 BD F0                   		movw	r8, ax
+ 467 02eb B8 12                   		movw	[sp+18], ax
+ 468 02ed A1                      		incw	ax
+ 469 02ee B8 1A                   		movw	[sp+26], ax
+ 190:../src/r_main.c **** 
+ 191:../src/r_main.c **** 	for(count = 0; count < result; count++)
+ 470                             		.loc 1 191 0
+ 471 02f0 F6                      		clrw	ax
+ 472 02f1 B8 1C                   		movw	[sp+28], ax
+ 473 02f3 EC 22 03 00             		br	!!.L17
+ 474                             	.L18:
+ 192:../src/r_main.c **** 		buf[count] = string[count];
+ 475                             		.loc 1 192 0 discriminator 2
+ 476 02f7 A8 1C                   		movw	ax, [sp+28]
+ 477 02f9 BD F0                   		movw	r8, ax
+ 478 02fb A8 22                   		movw	ax, [sp+34]
+ 479 02fd 06 F0                   		addw	ax, r8
+ 480 02ff BD F0                   		movw	r8, ax
+ 481 0301 A8 1C                   		movw	ax, [sp+28]
+ 482 0303 BD F2                   		movw	r10, ax
+ 483 0305 A8 18                   		movw	ax, [sp+24]
+ 484 0307 06 F2                   		addw	ax, r10
+ 485 0309 BD F2                   		movw	r10, ax
+ 486 030b BD F4                   		movw	r12, ax
+ 487 030d FA F4                   		movw	hl, r12
+ 488 030f 8B                      		mov	a, [hl]
+ 489 0310 9D F2                   		mov	r10, a
+ 490 0312 AD F0                   		movw	ax, r8
+ 491 0314 BD F6                   		movw	r14, ax
+ 492 0316 DA F6                   		movw	bc, r14
+ 493 0318 8D F2                   		mov	a, r10
+ 494 031a 48 00 00                		mov	[bc], a
+ 191:../src/r_main.c **** 	for(count = 0; count < result; count++)
+ 495                             		.loc 1 191 0 discriminator 2
+ 496 031d A8 1C                   		movw	ax, [sp+28]
+ 497 031f A1                      		incw	ax
+ 498 0320 B8 1C                   		movw	[sp+28], ax
+ 499                             	.L17:
+ 191:../src/r_main.c **** 	for(count = 0; count < result; count++)
+ 500                             		.loc 1 191 0 is_stmt 0 discriminator 1
+ 501 0322 A8 1A                   		movw	ax, [sp+26]
+ 502 0324 BD F0                   		movw	r8, ax
+ 503 0326 A8 1C                   		movw	ax, [sp+28]
+ 504 0328 46 F0                   		cmpw	ax, r8 
+ 505 032a 71 FF                   		xor1 CY,a.7
+ 506 032c 71 77 F1                		xor1 CY,r9.7
+ 507 032f 61 D8                   		sknc 
+ 508 0331 EC F7 02 00             		br	!!.L18
+ 193:../src/r_main.c **** 
+ 194:../src/r_main.c **** 	buf[result] = ' ';
+ 509                             		.loc 1 194 0 is_stmt 1
+ 510 0335 A8 1A                   		movw	ax, [sp+26]
+ 511 0337 BD F0                   		movw	r8, ax
+ 512 0339 A8 22                   		movw	ax, [sp+34]
+ 513 033b 06 F0                   		addw	ax, r8
+ 514 033d BD F0                   		movw	r8, ax
+ 515 033f BD F2                   		movw	r10, ax
+ 516 0341 DA F2                   		movw	bc, r10
+ 517 0343 51 20                   		mov	a, #32
+ 518 0345 48 00 00                		mov	[bc], a
+ 195:../src/r_main.c **** 
+ 196:../src/r_main.c **** 	return result + 1; //plus 2???
+ 519                             		.loc 1 196 0
+ 520 0348 A8 1A                   		movw	ax, [sp+26]
+ 521 034a A1                      		incw	ax
+ 522 034b B8 10                   		movw	[sp+16], ax
+ 523 034d BD F0                   		movw	r8, ax
+ 197:../src/r_main.c **** }
+ 524                             		.loc 1 197 0
+ 525 034f 10 1E                   		addw	sp, #30
+ 526 0351 D7                      		ret
+ 527                             	.LFE2:
+ 579                             	.Letext0:
+ 580                             		.file 2 "../src/iodefine.h"
+ 581                             		.file 3 "../src/r_cg_macrodriver.h"

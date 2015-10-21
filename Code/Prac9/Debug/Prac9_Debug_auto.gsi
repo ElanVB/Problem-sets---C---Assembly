@@ -1,0 +1,107 @@
+SECTIONS
+{
+	.vec 0x0 : AT (0x0)
+	{
+		KEEP(*(.vec))
+	}
+	.vects 0x4 : AT (0x4)
+	{
+		KEEP(*(.vects))
+	}
+	.option_bytes 0xC0 : AT (0xC0)
+	{
+		KEEP(*(.option_bytes))
+	}
+	.security_id 0xC4 : AT (0xC4)
+	{
+		KEEP(*(.security_id))
+	}
+	.rodata 0x1000 : AT (0x1000)
+	{
+		. = ALIGN(2);
+		*(.rodata)
+		*(.rodata.*)
+		_erodata = .;
+	}
+	.text : 
+	{
+		*(.text)
+		*(.text.*)
+		etext = .;
+		. = ALIGN(2);
+	}
+	.init : 
+	{
+		*(.init)
+	}
+	.fini : 
+	{
+		*(.fini)
+	}
+	.got : 
+	{
+		*(.got)
+		*(.got.plt)
+	}
+	.eh_frame_hdr : 
+	{
+		*(.eh_frame_hdr)
+	}
+	.eh_frame : 
+	{
+		*(.eh_frame)
+	}
+	.jcr : 
+	{
+		*(.jcr)
+	}
+	.tors : 
+	{
+		__CTOR_LIST__ = .;
+		. = ALIGN(2);
+		___ctors = .;
+		*(.ctors)
+		___ctors_end = .;
+		__CTOR_END__ = .;
+		__DTOR_LIST__ = .;
+		___dtors = .;
+		*(.dtors)
+		___dtors_end = .;
+		__DTOR_END__ = .;
+		. = ALIGN(2);
+		_mdata = .;
+	}
+	.ocdStad : 
+	{
+		*(.ocdStad)
+	}
+	.ocdRom : 
+	{
+		*(.ocdRom)
+	}
+	.data 0xFEF00 : AT (_mdata)
+	{
+		. = ALIGN(2);
+		_data = .;
+		*(.data)
+		*(.data.*)
+		. = ALIGN(2);
+		_edata = .;
+	}
+	.bss : 
+	{
+		. = ALIGN(2);
+		_bss = .;
+		*(.bss)
+		*(.bss.**)
+		. = ALIGN(2);
+		*(COMMON)
+		. = ALIGN(2);
+		_ebss = .;
+		_end = .;
+	}
+	.stack 0xFFE00 (NOLOAD)  : AT (0xFFE00)
+	{
+		_stack = .;
+	}
+}

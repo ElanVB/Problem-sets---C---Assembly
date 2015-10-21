@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+	<configuration id="com.renesas.cdt.RL78.configuration.debug.229691028" name="Debug">
+		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
+			<provider id="RL78GCCBuiltinSpecsDetector"/>
+		</extension>
+	</configuration>
+	<configuration id="com.renesas.cdt.RL78.configuration.hardwaredebug.105630249" name="HardwareDebug">
+		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
+			<provider id="RL78GCCBuiltinSpecsDetector"/>
+		</extension>
+	</configuration>
+</project>

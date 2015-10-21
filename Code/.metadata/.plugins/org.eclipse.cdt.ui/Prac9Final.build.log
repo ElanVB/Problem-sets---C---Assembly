@@ -1,0 +1,191 @@
+16:42:01 **** Incremental Build of configuration HardwareDebug for project Prac9Final ****
+make -j4 all 
+'Scanning and building file: ../src/r_cg_cgc.c'
+'Scanning and building file: ../src/r_cg_cgc_user.c'
+'Invoking: Scanner and Compiler'
+'Scanning and building file: ../src/r_cg_port.c'
+'Invoking: Scanner and Compiler'
+'Invoking: Scanner and Compiler'
+'Scanning and building file: ../src/r_cg_port_user.c'
+'Invoking: Scanner and Compiler'
+rl78-elf-gcc -MM -MP -MF "src/r_cg_cgc.d" -MT"src/r_cg_cgc.o" -MT"src/r_cg_cgc.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -x c "../src/r_cg_cgc.c"
+rl78-elf-gcc -MM -MP -MF "src/r_cg_cgc_user.d" -MT"src/r_cg_cgc_user.o" -MT"src/r_cg_cgc_user.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -x c "../src/r_cg_cgc_user.c"
+rl78-elf-gcc -MM -MP -MF "src/r_cg_port.d" -MT"src/r_cg_port.o" -MT"src/r_cg_port.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -x c "../src/r_cg_port.c"
+rl78-elf-gcc -MM -MP -MF "src/r_cg_port_user.d" -MT"src/r_cg_port_user.o" -MT"src/r_cg_port_user.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -x c "../src/r_cg_port_user.c"
+   1                             	r8	=	0xffef0
+   2                             	r16	=	0xffee8
+   3                             	r24	=	0xffee0
+   4                             	r9	=	0xffef1
+   5                             	r17	=	0xffee9
+   6                             	r25	=	0xffee1
+   7                             	r10	=	0xffef2
+   8                             	r18	=	0xffeea
+   9                             	r26	=	0xffee2
+  10                             	r11	=	0xffef3
+  11                             	r19	=	0xffeeb
+  12                             	r27	=	0xffee3
+  13                             	r12	=	0xffef4
+  14                             	r20	=	0xffeec
+  15                             	r28	=	0xffee4
+  16                             	r13	=	0xffef5
+  17                             	r21	=	0xffeed
+  18                             	r29	=	0xffee5
+  19                             	r14	=	0xffef6
+  20                             	r22	=	0xffeee
+  21                             	r30	=	0xffee6
+  22                             	r15	=	0xffef7
+  23                             	r23	=	0xffeef
+  24                             	r31	=	0xffee7
+  25                             	.text
+  26                             	.Ltext0:
+  27                             		.global	_R_PORT_Create
+  29                             	_R_PORT_Create:
+  30                             	.LFB0:
+  31                             		.file 1 "../src/r_cg_port.c"
+   1:../src/r_cg_port.c **** /**************************************************************************************************
+   2:../src/r_cg_port.c **** * DISCLAIMER
+   3:../src/r_cg_port.c **** * This software is supplied by Renesas Electronics Corporation and is only 
+   4:../src/r_cg_port.c **** * intended for use with Renesas products. No other uses are authorized. This 
+   5:../src/r_cg_port.c **** * software is owned by Renesas Electronics Corporation and is protected under 
+   6:../src/r_cg_port.c **** * all applicable laws, including copyright laws.
+   7:../src/r_cg_port.c **** * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING 
+   8:../src/r_cg_port.c **** * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT 
+   9:../src/r_cg_port.c **** * LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE 
+  10:../src/r_cg_port.c **** * AND NON-INFRINGEMENT.  ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+  11:../src/r_cg_port.c **** * TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS 
+  12:../src/r_cg_port.c **** * ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE 
+  13:../src/r_cg_port.c **** * FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR 
+  14:../src/r_cg_port.c **** * ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE 
+  15:../src/r_cg_port.c **** * BEEN ADVISED OF THE POSSIBILITY OFrl78-elf-gcc -Wa,-adlhn="r_cg_cgc_user.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -c -x c -o "src/r_cg_cgc_user.o" "../src/r_cg_cgc_user.c"
+ SUCH DAMAGES.
+  16:../src/r_cg_port.c **** * Renesas reserves the right, without notice, to make changes to this software 
+  17:../src/r_cg_port.c **** * and to discontinue the availability of this software.  By using this software, 
+  18:../src/r_cg_port.c **** * you agree to the additional terms and conditions found by accessing the 
+  19:../src/r_cg_port.c **** * following link:
+  20:../src/r_cg_port.c **** * http://www.renesas.com/disclaimer
+  21:../src/r_cg_port.c **** *
+  22:../src/r_cg_port.c **** * Copyright (C) 2011, 2014 Renesas Electronics Corporation. All rights reserved.
+  23:../src/r_cg_port.c **** ***************************************************************************************************
+  24:../src/r_cg_port.c **** 
+  25:../src/r_cg_port.c **** /**************************************************************************************************
+  26:../src/r_cg_port.c **** * File Name    : r_cg_port.c
+  27:../src/r_cg_port.c **** * Version      : CodeGenerator for RL78/G13 V2.02.00.02 [11 Feb 2014]
+  28:../src/r_cg_port.c **** * Device(s)    : R5F100LE
+  29:../src/r_cg_port.c **** * Tool-Chain   : GCCRL78
+  30:../src/r_cg_port.c **** * Description  : This file implements device driver for PORT module.
+  31:../src/r_cg_port.c **** * Creation Date: 10/10/2015
+  32:../src/r_cg_port.c **** ***************************************************************************************************
+  33:../src/r_cg_port.c **** 
+  34:../src/r_cg_port.c **** /**************************************************************************************************
+  35:../src/r_cg_port.c **** Includes
+  36:../src/r_cg_port.c **** ***************************************************************************************************
+  37:../src/r_cg_port.c **** #include "r_cg_macrodriver.h"
+  38:../src/r_cg_port.c **** #include "r_cg_port.h"
+  39:../src/r_cg_port.c **** /* Start user code for include. Do not edit comment generated here */
+  40:../src/r_cg_port.c **** /* End user code. Do not edit comment generated here */
+  41:../src/r_cg_port.c **** #include "r_cg_userdefine.h"
+  42:../src/r_cg_port.c **** 
+  43:../src/r_cg_port.c **** /**************************************************************************************************
+  44:../src/r_cg_port.c **** Global variables and functions
+  45:../src/r_cg_port.c **** ***************************************************************************************************
+  46:../src/r_cg_port.c **** /* Start user code for global. Do not edit comment generated here */
+  47:../src/r_cg_port.c **** /* End user code. Do not edit comment generated here */
+  48:../src/r_cg_port.c **** 
+  49:../src/r_cg_port.c **** /**************************************************************************************************
+  50:../src/r_cg_port.c **** * Function Name: R_PORT_Create
+  51:../src/r_cg_port.c **** * Description  : This function initializes the Port I/O.
+  52:../src/r_cg_port.c **** * Arguments    : None
+  53:../src/r_cg_port.c **** * Return Value : None
+  54:../src/r_cg_port.c **** ***************************************************************************************************
+  55:../src/r_cg_port.c **** void R_PORT_Create(void)
+  56:../src/r_cg_port.c **** {
+  32                             		.loc 1 56 0
+  57:../src/r_cg_port.c ****     PU4 = _01_PUn0_PULLUP_ON;
+  33                             		.loc 1 57 0
+  34 0000 C9 F0 34 00             		movw	r8, #52
+  35 0004 AD F0                   		movw	ax, r8
+  36 0006 BD F2                   		movw	r10, ax
+  37 0008 DA F2                   		movw	bc, r10
+  38 000a E1                      		oneb	a
+  39 000b 48 00 00                		mov	[bc], a
+  58:../src/r_cg_port.c **** }
+  40                             		.loc 1 58 0
+  41 000e D7                      		ret
+  42                             	.LFE0:
+  70                             	.Letext0:
+  71                             		.file 2 "../src/iodefine.h"
+  72                             		.file 3 "../src/iodefine_ext.h"
+C:\Users\Elan\AppData\Local\Temp\ccyh5NFG.s: Assembler messages:
+C:\Users\Elan\AppData\Local\Temp\ccyh5NFG.s: Warning: can't open r_cg_cgc.lst: Invalid argument
+'Finished scanning and building: ../src/r_cg_cgc_user.c'
+rl78-elf-gcc -Wa,-adlhn="r_cg_port.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -c -x c -o "src/r_cg_port.o" "../src/r_cg_port.c"
+rl78-elf-gcc -Wa,-adlhn="r_cg_cgc.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -c -x c -o "src/r_cg_cgc.o" "../src/r_cg_cgc.c"
+
+'Finished scanning and building: ../src/r_cg_port.c'
+'Finished scanning and building: ../src/r_cg_cgc.c'
+rl78-elf-gcc -Wa,-adlhn="r_cg_port_user.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -c -x c -o "src/r_cg_port_user.o" "../src/r_cg_port_user.c"
+
+'Scanning and building file: ../src/r_cg_serial.c'
+
+'Finished scanning and building: ../src/r_cg_port_user.c'
+'Invoking: Scanner and Compiler'
+'Scanning and building file: ../src/r_cg_serial_user.c'
+'Scanning and building file: ../src/r_cg_timer.c'
+
+'Invoking: Scanner and Compiler'
+'Invoking: Scanner and Compiler'
+'Scanning and building file: ../src/r_cg_timer_user.c'
+rl78-elf-gcc -MM -MP -MF "src/r_cg_serial.d" -MT"src/r_cg_serial.o" -MT"src/r_cg_serial.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -x c "../src/r_cg_serial.c"
+'Invoking: Scanner and Compiler'
+rl78-elf-gcc -MM -MP -MF "src/r_cg_timer.d" -MT"src/r_cg_timer.o" -MT"src/r_cg_timer.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -x c "../src/r_cg_timer.c"
+rl78-elf-gcc -MM -MP -MF "src/r_cg_serial_user.d" -MT"src/r_cg_serial_user.o" -MT"src/r_cg_serial_user.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -x c "../src/r_cg_serial_user.c"
+rl78-elf-gcc -MM -MP -MF "src/r_cg_timer_user.d" -MT"src/r_cg_timer_user.o" -MT"src/r_cg_timer_user.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -x c "../src/r_cg_timer_user.c"
+rl78-elf-gcc -Wa,-adlhn="r_cg_timer.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -c -x c -o "src/r_cg_timer.o" "../src/r_cg_timer.c"
+'Finished scanning and building: ../src/r_cg_timer.c'
+rl78-elf-gcc -Wa,-adlhn="r_cg_serial.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -c -x c -o "src/r_cg_serial.o" "../src/r_cg_serial.c"
+
+'Finished scanning and building: ../src/r_cg_serial.c'
+rl78-elf-gcc -Wa,-adlhn="r_cg_serial_user.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -c -x c -o "src/r_cg_serial_user.o" "../src/r_cg_serial_user.c"
+
+'Scanning and building file: ../src/r_cg_vector_table.c'
+'Finished scanning and building: ../src/r_cg_serial_user.c'
+'Scanning and building file: ../src/r_hardware_setup.c'
+'Invoking: Scanner and Compiler'
+rl78-elf-gcc -Wa,-adlhn="r_cg_timer_user.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -c -x c -o "src/r_cg_timer_user.o" "../src/r_cg_timer_user.c"
+
+'Invoking: Scanner and Compiler'
+'Finished scanning and building: ../src/r_cg_timer_user.c'
+
+'Scanning and building file: ../src/r_main.c'
+'Scanning and building file: ../src/r_reset_program.asm'
+'Invoking: Scanner and Compiler'
+'Invoking: Scanner and Compiler'
+rl78-elf-gcc -MM -MP -MF "src/r_cg_vector_table.d" -MT"src/r_cg_vector_table.o" -MT"src/r_cg_vector_table.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -x c "../src/r_cg_vector_table.c"
+rl78-elf-gcc -MM -MP -MF "src/r_hardware_setup.d" -MT"src/r_hardware_setup.o" -MT"src/r_hardware_setup.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -x c "../src/r_hardware_setup.c"
+rl78-elf-gcc -MM -MP -MF "src/r_main.d" -MT"src/r_main.o" -MT"src/r_main.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -x c "../src/r_main.c"
+rl78-elf-gcc -MM -MP -MF "src/r_reset_program.d" -MT"src/r_reset_program.o" -MT"src/r_reset_program.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -Wa,-gdwarf2 -x assembler-with-cpp -o"src/r_reset_program.o" "../src/r_reset_program.asm"
+rl78-elf-gcc -Wa,-adlhn="r_cg_vector_table.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -c -x c -o "src/r_cg_vector_table.o" "../src/r_cg_vector_table.c"
+'Finished scanning and building: ../src/r_cg_vector_table.c'
+
+rl78-elf-gcc -Wa,-adlhn="r_hardware_setup.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -c -x c -o "src/r_hardware_setup.o" "../src/r_hardware_setup.c"
+rl78-elf-gcc -Wa,-adlhn="r_main.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -c -x c -o "src/r_main.o" "../src/r_main.c"
+'Finished scanning and building: ../src/r_hardware_setup.c'
+'Finished scanning and building: ../src/r_main.c'
+
+rl78-elf-gcc -Wa,-adlhn="r_reset_program.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -Wa,-gdwarf2 -c -x assembler-with-cpp  -o "src/r_reset_program.o" "../src/r_reset_program.asm"
+
+'Finished scanning and building: ../src/r_reset_program.asm'
+
+'Invoking: Linker'
+'Building target:'
+rl78-elf-ld -o "Prac9Final.x" -T"C:\Users\Elan\Google Drive\Second Year Engineering\E en E\CS semseter 2\Prakties\2015\Code\Prac9Final\HardwareDebug\Prac9Final_HardwareDebug_auto.gsi" -T"C:\Users\Elan\Google Drive\Second Year Engineering\E en E\CS semseter 2\Prakties\2015\Code\Prac9Final\HardwareDebug\LinkerSubCommand.tmp"    -M=Prac9Final.map -e_PowerON_Reset -L"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v14.01" -L"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/lib" --start-group -loptm -loptc -lgcc --end-group
+'Finished building:'
+
+'Invoking: Objcopy'
+rl78-elf-objcopy -O srec   Prac9Final.x "Prac9Final.mot"
+'Finished building target:'
+
+'Build complete.'
+
+16:42:05 Build Finished (took 3s.752ms)
+

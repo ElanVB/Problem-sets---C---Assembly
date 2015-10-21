@@ -1,0 +1,5 @@
+gen unique num - ASM: 2Us - C: 7us
+Gen check - ASM: 6us - C: 13.5us
+Val check - ASM 4.25us - C: 7.5us
+buuble sort - ASM: 24us - C: 113us
+LED - ASM: 0.65us

@@ -1,0 +1,77 @@
+   1                             	# 1 "../src/findNumber.asm"
+   1                             	.global _find_number
+   0                             	
+   0                             	
+   2                             	.global _populate_addresses
+   3                             	
+   4                             	_populate_addresses:
+   5 0000 FB F8 FF                	movw hl, sp
+   6 0003 8C 08                   	mov a, [hl + 8]
+   7 0005 0C 30                   	add a, #30H
+   8 0007 72                      	mov c, a
+   9 0008 AC 06                   	movw ax, [hl + 6]
+  10 000a 14                      	movw de, ax
+  11 000b AC 04                   	movw ax, [hl + 4]
+  12 000d 16                      	movw hl, ax
+  13                             	
+  14 000e F3                      	clrb b
+  15                             	
+  16                             	change:
+  17 000f 83                      	inc b
+  18 0010 62                      	mov a, c
+  19 0011 70                      	mov x, a
+  20 0012 51 00                   	mov a, #0
+  21 0014 BB                      	movw [hl], ax
+  22 0015 A7                      	incw hl
+  23                             	
+  24 0016 15                      	movw ax, de
+  25 0017 47                      	cmpw ax, hl
+  26 0018 61 C3 F4                	bh $change
+  27 001b DD F2                   	bz $change
+  28 001d EF 00                   	br $end2
+  29                             	
+  30                             	end2:
+  31 001f 63                      	mov a, b
+  32                             	;;mov 0xFFEF0, a
+  33 0020 70                      	mov x, a
+  34 0021 51 00                   	mov a, #0
+  35 0023 BD F0                   	movw 0xFFEF0, ax
+  36                             	
+  37 0025 D7                      	ret
+  38                             	
+  39                             	_find_number:
+  40 0026 FB F8 FF                	movw hl, sp
+  41 0029 8C 08                   	mov a, [hl + 8]
+  42 002b 2C 30                   	sub a, #30H
+  43 002d 72                      	mov c, a
+  44 002e AC 06                   	movw ax, [hl + 6]
+  45 0030 14                      	movw de, ax
+  46 0031 AC 04                   	movw ax, [hl + 4]
+  47 0033 16                      	movw hl, ax							;;I forgot the W
+  48                             	
+  49 0034 F3                      	clrb b
+  50                             	
+  51                             	check_value:
+  52 0035 62                      	mov a, c
+  53 0036 4D                      	cmp a, [hl]
+  54 0037 DD 0A                   	bz $count
+  55                             	
+  56                             	continue:
+  57 0039 A7                      	incw hl
+  58 003a 15                      	movw ax, de
+  59 003b 47                      	cmpw ax, hl							;;I forgot the W
+  60 003c 61 C3 F6                	bh $check_value
+  61 003f DD F4                   	bz $check_value
+  62 0041 EF 03                   	br $end
+  63                             	
+  64                             	count:
+  65 0043 83                      	inc b
+  66 0044 EF F3                   	br $continue
+  67                             	
+  68                             	end:
+  69 0046 63                      	mov a, b
+  70                             	;;mov 0xFFEF0, a
+  71 0047 70                      	mov x, a
+  72 0048 51 00                   	mov a, #0
+  73 004a BD F0                   	movw 0xFFEF0, ax
+  74 004c D7                      	ret

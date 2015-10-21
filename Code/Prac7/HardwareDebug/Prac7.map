@@ -1,0 +1,311 @@
+Archive member included because of file (symbol)
+
+C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v15.01\libgcc.a(divmodhi.o)
+                              ./src/Prac7.o (__modhi3)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+VEC              0x00000000         0x00000004
+IVEC             0x00000004         0x000000bc
+OPT              0x000000c0         0x00000004
+SEC_ID           0x000000c4         0x0000000a
+OCDSTAD          0x000000ce         0x0000000a
+OCDROM           0x0000fe00         0x00000200
+ROM              0x000000d8         0x0000fd28
+RAM              0x000fef00         0x00000fff
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.vec            0x00000000        0x4
+ *(.vec)
+ .vec           0x00000000        0x4 ./src/vector_table.o
+                0x00000000                HardwareVectors
+
+.vects          0x00000004       0x7c
+ *(.vects)
+ .vects         0x00000004       0x7c ./src/vector_table.o
+                0x00000004                Vectors
+
+.option_bytes   0x000000c0        0x4
+ *(.option_bytes)
+ .option_bytes  0x000000c0        0x4 ./src/vector_table.o
+                0x000000c0                Option_Bytes
+
+.security_id    0x000000c4        0xa
+ *(.security_id)
+ .security_id   0x000000c4        0xa ./src/vector_table.o
+                0x000000c4                Security_Id
+
+.lowtext        0x000000d8        0x0
+ *(.plt)
+ .plt           0x000000d8        0x0 ./src/reset_program.o
+ *(.lowtext)
+                0x000000d8                . = ALIGN (0x2)
+
+.text           0x000000d8      0x752
+ *(.text)
+ .text          0x000000d8       0x30 ./src/LED.o
+                0x000000d8                switchLEDon
+                0x000000e8                switchLEDoff
+                0x000000f8                toggleLED
+ .text          0x00000108      0x2a1 ./src/Prac7.o
+                0x00000108                main
+                0x0000014d                calculate_unique_number_in_c
+                0x00000221                generate_checksum_in_c
+                0x00000298                validate_checksum_in_c
+                0x000002c8                bubble_sort_in_c
+                0x00000352                swap
+ .text          0x000003a9       0x41 ./src/bubblesort.o
+                0x000003a9                bubble_sort
+ .text          0x000003ea       0x1c ./src/calculateUniqueNumber.o
+                0x000003ea                calculateUniqueNumber
+ .text          0x00000406       0x42 ./src/checksum.o
+                0x00000406                generate_checksum
+                0x0000042f                validate_checksum
+ .text          0x00000448        0x1 ./src/hardware_setup.o
+                0x00000448                HardwareSetup
+ .text          0x00000449      0x1ec ./src/interrupt_handlers.o
+                0x00000449                INT_WDTI
+                0x00000455                INT_LVI
+                0x00000461                INT_P0
+                0x0000046d                INT_P1
+                0x00000479                INT_P2
+                0x00000485                INT_P3
+                0x00000491                INT_P4
+                0x0000049d                INT_P5
+                0x000004a9                INT_ST2
+                0x000004b5                INT_SR2
+                0x000004c1                INT_SRE2
+                0x000004cd                INT_DMA0
+                0x000004d9                INT_DMA1
+                0x000004e5                INT_ST0
+                0x000004f1                INT_SR0
+                0x000004fd                INT_TM01H
+                0x00000509                INT_ST1
+                0x00000515                INT_SR1
+                0x00000521                INT_TM03H
+                0x0000052d                INT_IICA0
+                0x00000539                INT_TM00
+                0x00000545                INT_TM01
+                0x00000551                INT_TM02
+                0x0000055d                INT_TM03
+                0x00000569                INT_AD
+                0x00000575                INT_RTC
+                0x00000581                INT_IT
+                0x0000058d                INT_KR
+                0x00000599                INT_TM04
+                0x000005a5                INT_TM05
+                0x000005b1                INT_TM06
+                0x000005bd                INT_TM07
+                0x000005c9                INT_P6
+                0x000005d5                INT_P7
+                0x000005e1                INT_P8
+                0x000005ed                INT_P9
+                0x000005f9                INT_P10
+                0x00000605                INT_P11
+                0x00000611                INT_MD
+                0x0000061d                INT_FL
+                0x00000629                INT_BRK_I
+ .text          0x00000635       0x60 ./src/reset_program.o
+                0x00000637                PowerON_Reset
+ .text          0x00000695        0x0 ./src/vector_table.o
+ .text          0x00000695        0x0 C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v15.01\libgcc.a(divmodhi.o)
+ *(.text.*)
+ .text.__generic_hidivmod_d
+                0x00000695       0x68 C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v15.01\libgcc.a(divmodhi.o)
+                0x00000695                _generic_hidivmod_d
+                0x0000069a                _generic_hidiv
+ .text.__generic_hidivmod_m
+                0x000006fd       0x51 C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v15.01\libgcc.a(divmodhi.o)
+                0x000006fd                _generic_hidivmod_m
+                0x00000702                _generic_himod
+ .text.___udivhi3
+                0x0000074e        0x4 C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v15.01\libgcc.a(divmodhi.o)
+                0x0000074e                __udivhi3
+ .text.___umodhi3
+                0x00000752        0x4 C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v15.01\libgcc.a(divmodhi.o)
+                0x00000752                __umodhi3
+ .text.___divhi3
+                0x00000756       0x6d C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v15.01\libgcc.a(divmodhi.o)
+                0x00000756                __divhi3
+ .text.___modhi3
+                0x000007c3       0x66 C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v15.01\libgcc.a(divmodhi.o)
+                0x000007c3                __modhi3
+                0x00000829                etext = .
+                0x0000082a                . = ALIGN (0x2)
+ *fill*         0x00000829        0x1 
+
+.init
+ *(.init)
+
+.fini
+ *(.fini)
+
+.got
+ *(.got)
+ *(.got.plt)
+
+.rodata         0x00002000        0x0
+                0x00002000                . = ALIGN (0x2)
+ *(.rodata)
+ *(.rodata.*)
+                0x00002000                _erodata = .
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame
+ *(.eh_frame)
+
+.jcr
+ *(.jcr)
+
+.tors           0x0000082a        0x0
+                0x0000082a                __CTOR_LIST__ = .
+                0x0000082a                . = ALIGN (0x2)
+                0x0000082a                ___ctors = .
+ *(.ctors)
+                0x0000082a                ___ctors_end = .
+                0x0000082a                __CTOR_END__ = .
+                0x0000082a                __DTOR_LIST__ = .
+                0x0000082a                ___dtors = .
+ *(.dtors)
+                0x0000082a                ___dtors_end = .
+                0x0000082a                __DTOR_END__ = .
+                0x0000082a                . = ALIGN (0x2)
+                0x0000082a                _mdata = .
+
+.data           0x000fef00        0x0 load address 0x0000082a
+                0x000fef00                . = ALIGN (0x2)
+                0x000fef00                _data = .
+ *(.data)
+ .data          0x000fef00        0x0 ./src/LED.o
+ .data          0x000fef00        0x0 ./src/Prac7.o
+ .data          0x000fef00        0x0 ./src/bubblesort.o
+ .data          0x000fef00        0x0 ./src/calculateUniqueNumber.o
+ .data          0x000fef00        0x0 ./src/checksum.o
+ .data          0x000fef00        0x0 ./src/hardware_setup.o
+ .data          0x000fef00        0x0 ./src/interrupt_handlers.o
+ .data          0x000fef00        0x0 ./src/reset_program.o
+ .data          0x000fef00        0x0 ./src/vector_table.o
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v15.01\libgcc.a(divmodhi.o)
+ *(.data.*)
+                0x000fef00                . = ALIGN (0x2)
+                0x000fef00                _edata = .
+
+.bss            0x000fef00        0x0 load address 0x0000082a
+                0x000fef00                . = ALIGN (0x2)
+                0x000fef00                _bss = .
+ *(.bss)
+ .bss           0x000fef00        0x0 ./src/LED.o
+ .bss           0x000fef00        0x0 ./src/Prac7.o
+ .bss           0x000fef00        0x0 ./src/bubblesort.o
+ .bss           0x000fef00        0x0 ./src/calculateUniqueNumber.o
+ .bss           0x000fef00        0x0 ./src/checksum.o
+ .bss           0x000fef00        0x0 ./src/hardware_setup.o
+ .bss           0x000fef00        0x0 ./src/interrupt_handlers.o
+ .bss           0x000fef00        0x0 ./src/reset_program.o
+ .bss           0x000fef00        0x0 ./src/vector_table.o
+ .bss           0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v15.01\libgcc.a(divmodhi.o)
+ *(.bss.**)
+                0x000fef00                . = ALIGN (0x2)
+ *(COMMON)
+                0x000fef00                . = ALIGN (0x2)
+                0x000fef00                _ebss = .
+                0x000fef00                _end = .
+
+.stack          0x000ffe00        0x0
+                0x000ffe00                _stack = .
+LOAD ./src/LED.o
+LOAD ./src/Prac7.o
+LOAD ./src/bubblesort.o
+LOAD ./src/calculateUniqueNumber.o
+LOAD ./src/checksum.o
+LOAD ./src/hardware_setup.o
+LOAD ./src/interrupt_handlers.o
+LOAD ./src/reset_program.o
+LOAD ./src/vector_table.o
+START GROUP
+LOAD C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/rl78-elf/lib\liboptm.a
+LOAD C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/rl78-elf/lib\liboptc.a
+LOAD C:\PROGRA~2\KPIT\GNURL7~2.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v15.01\libgcc.a
+END GROUP
+OUTPUT(Prac7.x elf32-rl78)
+
+.debug_line     0x00000000      0x3ce
+ .debug_line    0x00000000       0x56 ./src/LED.o
+ .debug_line    0x00000056       0xbd ./src/Prac7.o
+ .debug_line    0x00000113       0x68 ./src/bubblesort.o
+ .debug_line    0x0000017b       0x5d ./src/calculateUniqueNumber.o
+ .debug_line    0x000001d8       0x64 ./src/checksum.o
+ .debug_line    0x0000023c       0x48 ./src/hardware_setup.o
+ .debug_line    0x00000284       0x9c ./src/interrupt_handlers.o
+ .debug_line    0x00000320       0x78 ./src/reset_program.o
+ .debug_line    0x00000398       0x36 ./src/vector_table.o
+
+.debug_info     0x00000000      0x974
+ .debug_info    0x00000000       0x6e ./src/LED.o
+ .debug_info    0x0000006e      0x34f ./src/Prac7.o
+ .debug_info    0x000003bd       0x75 ./src/bubblesort.o
+ .debug_info    0x00000432       0x80 ./src/calculateUniqueNumber.o
+ .debug_info    0x000004b2       0x73 ./src/checksum.o
+ .debug_info    0x00000525       0x37 ./src/hardware_setup.o
+ .debug_info    0x0000055c      0x2df ./src/interrupt_handlers.o
+ .debug_info    0x0000083b       0x78 ./src/reset_program.o
+ .debug_info    0x000008b3       0xc1 ./src/vector_table.o
+
+.debug_abbrev   0x00000000      0x264
+ .debug_abbrev  0x00000000       0x14 ./src/LED.o
+ .debug_abbrev  0x00000014      0x155 ./src/Prac7.o
+ .debug_abbrev  0x00000169       0x14 ./src/bubblesort.o
+ .debug_abbrev  0x0000017d       0x14 ./src/calculateUniqueNumber.o
+ .debug_abbrev  0x00000191       0x14 ./src/checksum.o
+ .debug_abbrev  0x000001a5       0x2c ./src/hardware_setup.o
+ .debug_abbrev  0x000001d1       0x2c ./src/interrupt_handlers.o
+ .debug_abbrev  0x000001fd       0x14 ./src/reset_program.o
+ .debug_abbrev  0x00000211       0x53 ./src/vector_table.o
+
+.debug_aranges  0x00000000      0x118
+ .debug_aranges
+                0x00000000       0x20 ./src/LED.o
+ .debug_aranges
+                0x00000020       0x20 ./src/Prac7.o
+ .debug_aranges
+                0x00000040       0x20 ./src/bubblesort.o
+ .debug_aranges
+                0x00000060       0x20 ./src/calculateUniqueNumber.o
+ .debug_aranges
+                0x00000080       0x20 ./src/checksum.o
+ .debug_aranges
+                0x000000a0       0x20 ./src/hardware_setup.o
+ .debug_aranges
+                0x000000c0       0x20 ./src/interrupt_handlers.o
+ .debug_aranges
+                0x000000e0       0x20 ./src/reset_program.o
+ .debug_aranges
+                0x00000100       0x18 ./src/vector_table.o
+
+.debug_frame    0x00000000      0x7e8
+ .debug_frame   0x00000000       0xa4 ./src/Prac7.o
+ .debug_frame   0x000000a4       0x24 ./src/hardware_setup.o
+ .debug_frame   0x000000c8      0x720 ./src/interrupt_handlers.o
+
+.debug_str      0x00000000      0x3a0
+ .debug_str     0x00000000      0x1d2 ./src/Prac7.o
+                                0x1d7 (size before relaxing)
+ .debug_str     0x000001d2       0x26 ./src/hardware_setup.o
+                                 0xe6 (size before relaxing)
+ .debug_str     0x000001f8      0x169 ./src/interrupt_handlers.o
+                                0x229 (size before relaxing)
+ .debug_str     0x00000361       0x3f ./src/vector_table.o
+                                0x11e (size before relaxing)
+
+.comment        0x00000000       0x97
+ .comment       0x00000000       0x97 ./src/Prac7.o
+                                 0x98 (size before relaxing)
+ .comment       0x00000000       0x98 ./src/hardware_setup.o
+ .comment       0x00000000       0x98 ./src/interrupt_handlers.o
+ .comment       0x00000000       0x98 ./src/vector_table.o

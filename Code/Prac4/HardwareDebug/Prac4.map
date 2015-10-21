@@ -1,0 +1,259 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+VEC              0x00000000         0x00000004
+IVEC             0x00000004         0x000000bc
+OPT              0x000000c0         0x00000004
+SEC_ID           0x000000c4         0x0000000a
+OCDSTAD          0x000000ce         0x0000000a
+OCDROM           0x0000fe00         0x00000200
+ROM              0x000000d8         0x0000fd28
+RAM              0x000fef00         0x00000fff
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.vec            0x00000000        0x4
+ *(.vec)
+ .vec           0x00000000        0x4 ./src/vector_table.o
+                0x00000000                HardwareVectors
+
+.vects          0x00000004       0x7c
+ *(.vects)
+ .vects         0x00000004       0x7c ./src/vector_table.o
+                0x00000004                Vectors
+
+.option_bytes   0x000000c0        0x4
+ *(.option_bytes)
+ .option_bytes  0x000000c0        0x4 ./src/vector_table.o
+                0x000000c0                Option_Bytes
+
+.security_id    0x000000c4        0xa
+ *(.security_id)
+ .security_id   0x000000c4        0xa ./src/vector_table.o
+                0x000000c4                Security_Id
+
+.lowtext        0x000000d8       0xc4
+ *(.plt)
+ .plt           0x000000d8       0xc4 ./src/Prac4.o
+ *(.lowtext)
+                0x0000019c                . = ALIGN (0x2)
+
+.text           0x0000019c      0x308
+ *(.text)
+ .text          0x0000019c       0x5c ./src/Prac4.o
+                0x0000019c                main
+ .text          0x000001f8       0x1c ./src/calculateUniqueNumber.o
+                0x000001f8                calculateUniqueNumber
+ .text          0x00000214       0x42 ./src/checksum.o
+                0x00000214                generate_checksum
+                0x0000023d                validate_checksum
+ .text          0x00000256        0x1 ./src/hardware_setup.o
+                0x00000256                HardwareSetup
+ .text          0x00000257      0x1ec ./src/interrupt_handlers.o
+                0x00000257                INT_WDTI
+                0x00000263                INT_LVI
+                0x0000026f                INT_P0
+                0x0000027b                INT_P1
+                0x00000287                INT_P2
+                0x00000293                INT_P3
+                0x0000029f                INT_P4
+                0x000002ab                INT_P5
+                0x000002b7                INT_ST2
+                0x000002c3                INT_SR2
+                0x000002cf                INT_SRE2
+                0x000002db                INT_DMA0
+                0x000002e7                INT_DMA1
+                0x000002f3                INT_ST0
+                0x000002ff                INT_SR0
+                0x0000030b                INT_TM01H
+                0x00000317                INT_ST1
+                0x00000323                INT_SR1
+                0x0000032f                INT_TM03H
+                0x0000033b                INT_IICA0
+                0x00000347                INT_TM00
+                0x00000353                INT_TM01
+                0x0000035f                INT_TM02
+                0x0000036b                INT_TM03
+                0x00000377                INT_AD
+                0x00000383                INT_RTC
+                0x0000038f                INT_IT
+                0x0000039b                INT_KR
+                0x000003a7                INT_TM04
+                0x000003b3                INT_TM05
+                0x000003bf                INT_TM06
+                0x000003cb                INT_TM07
+                0x000003d7                INT_P6
+                0x000003e3                INT_P7
+                0x000003ef                INT_P8
+                0x000003fb                INT_P9
+                0x00000407                INT_P10
+                0x00000413                INT_P11
+                0x0000041f                INT_MD
+                0x0000042b                INT_FL
+                0x00000437                INT_BRK_I
+ .text          0x00000443       0x60 ./src/reset_program.o
+                0x00000445                PowerON_Reset
+ .text          0x000004a3        0x0 ./src/vector_table.o
+ *(.text.*)
+                0x000004a3                etext = .
+                0x000004a4                . = ALIGN (0x2)
+ *fill*         0x000004a3        0x1 
+
+.init
+ *(.init)
+
+.fini
+ *(.fini)
+
+.got
+ *(.got)
+ *(.got.plt)
+
+.rodata         0x00002000        0x9
+                0x00002000                . = ALIGN (0x2)
+ *(.rodata)
+ .rodata        0x00002000        0x9 ./src/Prac4.o
+ *(.rodata.*)
+                0x00002009                _erodata = .
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame
+ *(.eh_frame)
+
+.jcr
+ *(.jcr)
+
+.tors           0x00002009        0x1
+                0x00002009                __CTOR_LIST__ = .
+                0x0000200a                . = ALIGN (0x2)
+ *fill*         0x00002009        0x1 
+                0x0000200a                ___ctors = .
+ *(.ctors)
+                0x0000200a                ___ctors_end = .
+                0x0000200a                __CTOR_END__ = .
+                0x0000200a                __DTOR_LIST__ = .
+                0x0000200a                ___dtors = .
+ *(.dtors)
+                0x0000200a                ___dtors_end = .
+                0x0000200a                __DTOR_END__ = .
+                0x0000200a                . = ALIGN (0x2)
+                0x0000200a                _mdata = .
+
+.data           0x000fef00        0x0 load address 0x0000200a
+                0x000fef00                . = ALIGN (0x2)
+                0x000fef00                _data = .
+ *(.data)
+ .data          0x000fef00        0x0 ./src/Prac4.o
+ .data          0x000fef00        0x0 ./src/calculateUniqueNumber.o
+ .data          0x000fef00        0x0 ./src/checksum.o
+ .data          0x000fef00        0x0 ./src/hardware_setup.o
+ .data          0x000fef00        0x0 ./src/interrupt_handlers.o
+ .data          0x000fef00        0x0 ./src/reset_program.o
+ .data          0x000fef00        0x0 ./src/vector_table.o
+ *(.data.*)
+                0x000fef00                . = ALIGN (0x2)
+                0x000fef00                _edata = .
+
+.bss            0x000fef00        0x0 load address 0x0000200a
+                0x000fef00                . = ALIGN (0x2)
+                0x000fef00                _bss = .
+ *(.bss)
+ .bss           0x000fef00        0x0 ./src/Prac4.o
+ .bss           0x000fef00        0x0 ./src/calculateUniqueNumber.o
+ .bss           0x000fef00        0x0 ./src/checksum.o
+ .bss           0x000fef00        0x0 ./src/hardware_setup.o
+ .bss           0x000fef00        0x0 ./src/interrupt_handlers.o
+ .bss           0x000fef00        0x0 ./src/reset_program.o
+ .bss           0x000fef00        0x0 ./src/vector_table.o
+ *(.bss.**)
+                0x000fef00                . = ALIGN (0x2)
+ *(COMMON)
+                0x000fef00                . = ALIGN (0x2)
+                0x000fef00                _ebss = .
+                0x000fef00                _end = .
+
+.stack          0x000ffe00        0x0
+                0x000ffe00                _stack = .
+LOAD ./src/Prac4.o
+LOAD ./src/calculateUniqueNumber.o
+LOAD ./src/checksum.o
+LOAD ./src/hardware_setup.o
+LOAD ./src/interrupt_handlers.o
+LOAD ./src/reset_program.o
+LOAD ./src/vector_table.o
+LOAD libPrac4.a
+START GROUP
+LOAD E:\Google Drive\Second Year Engineering\E en E\Computer systems semseter 2\Prakties\2015\Code\Prac4\HardwareDebug\libPrac4.a
+LOAD C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v14.01\libgcc.a
+END GROUP
+OUTPUT(Prac4.x elf32-rl78)
+
+.debug_frame    0x00000000      0x770
+ .debug_frame   0x00000000       0x2c ./src/Prac4.o
+ .debug_frame   0x0000002c       0x24 ./src/hardware_setup.o
+ .debug_frame   0x00000050      0x720 ./src/interrupt_handlers.o
+
+.debug_info     0x00000000      0x734
+ .debug_info    0x00000000      0x117 ./src/Prac4.o
+ .debug_info    0x00000117       0xc9 ./src/calculateUniqueNumber.o
+ .debug_info    0x000001e0       0xbc ./src/checksum.o
+ .debug_info    0x0000029c       0x37 ./src/hardware_setup.o
+ .debug_info    0x000002d3      0x2df ./src/interrupt_handlers.o
+ .debug_info    0x000005b2       0xc1 ./src/reset_program.o
+ .debug_info    0x00000673       0xc1 ./src/vector_table.o
+
+.debug_abbrev   0x00000000      0x182
+ .debug_abbrev  0x00000000       0x9b ./src/Prac4.o
+ .debug_abbrev  0x0000009b       0x14 ./src/calculateUniqueNumber.o
+ .debug_abbrev  0x000000af       0x14 ./src/checksum.o
+ .debug_abbrev  0x000000c3       0x2c ./src/hardware_setup.o
+ .debug_abbrev  0x000000ef       0x2c ./src/interrupt_handlers.o
+ .debug_abbrev  0x0000011b       0x14 ./src/reset_program.o
+ .debug_abbrev  0x0000012f       0x53 ./src/vector_table.o
+
+.debug_aranges  0x00000000       0xd8
+ .debug_aranges
+                0x00000000       0x20 ./src/Prac4.o
+ .debug_aranges
+                0x00000020       0x20 ./src/calculateUniqueNumber.o
+ .debug_aranges
+                0x00000040       0x20 ./src/checksum.o
+ .debug_aranges
+                0x00000060       0x20 ./src/hardware_setup.o
+ .debug_aranges
+                0x00000080       0x20 ./src/interrupt_handlers.o
+ .debug_aranges
+                0x000000a0       0x20 ./src/reset_program.o
+ .debug_aranges
+                0x000000c0       0x18 ./src/vector_table.o
+
+.debug_line     0x00000000      0x2ac
+ .debug_line    0x00000000       0x59 ./src/Prac4.o
+ .debug_line    0x00000059       0x5d ./src/calculateUniqueNumber.o
+ .debug_line    0x000000b6       0x64 ./src/checksum.o
+ .debug_line    0x0000011a       0x48 ./src/hardware_setup.o
+ .debug_line    0x00000162       0x9c ./src/interrupt_handlers.o
+ .debug_line    0x000001fe       0x78 ./src/reset_program.o
+ .debug_line    0x00000276       0x36 ./src/vector_table.o
+
+.debug_str      0x00000000      0x38a
+ .debug_str     0x00000000      0x1b3 ./src/Prac4.o
+                                0x1b8 (size before relaxing)
+ .debug_str     0x000001b3       0x26 ./src/hardware_setup.o
+                                0x12f (size before relaxing)
+ .debug_str     0x000001d9      0x169 ./src/interrupt_handlers.o
+                                0x272 (size before relaxing)
+ .debug_str     0x00000342       0x48 ./src/vector_table.o
+                                0x167 (size before relaxing)
+
+.comment        0x00000000       0x8b
+ .comment       0x00000000       0x8b ./src/Prac4.o
+                                 0x8c (size before relaxing)
+ .comment       0x00000000       0x8c ./src/hardware_setup.o
+ .comment       0x00000000       0x8c ./src/interrupt_handlers.o
+ .comment       0x00000000       0x8c ./src/vector_table.o

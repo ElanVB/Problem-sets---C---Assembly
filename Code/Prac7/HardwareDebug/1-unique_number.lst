@@ -1,0 +1,56 @@
+   1                             	# 1 "../src/1-unique_number.asm"
+   1                             	;18269575
+   0                             	
+   0                             	
+   2                             	;Function used
+   3                             	;uniqueNumber = calculateUniqueNumber( 9, 8, 7, 6, 5, 5, 2, 1);
+   4                             	;Vervang met jou studente nr.
+   5                             	;Replace with your student no.
+   6                             	
+   7                             	.global _calculateUniqueNumber
+   8                             	
+   9                             	_calculateUniqueNumber:
+  10                             	
+  11 0000 A8 04                   		movw AX,[SP+4]			;Get values
+  12 0002 14                      		movw DE,AX
+  13 0003 A8 06                   		movw AX,[SP+6]
+  14 0005 05                      		addw AX,DE				;then add them
+  15 0006 14                      		movw DE,AX
+  16 0007 A8 08                   		movw AX,[SP+8]
+  17 0009 05                      		addw AX,DE
+  18 000a 14                      		movw DE,AX
+  19 000b A8 0A                   		movw AX,[SP+10]
+  20 000d 05                      		addw AX,DE
+  21                             	
+  22 000e 12                      		movw BC,AX				;store temp
+  23                             	
+  24 000f A8 0C                   		movw AX,[SP+12]			;get next 4 values
+  25 0011 14                      		movw DE,AX
+  26 0012 A8 0E                   		movw AX,[SP+14]
+  27 0014 05                      		addw AX,DE
+  28 0015 14                      		movw DE,AX
+  29 0016 A8 10                   		movw AX,[SP+16]
+  30 0018 05                      		addw AX,DE
+  31 0019 14                      		movw DE,AX
+  32 001a A8 12                   		movw AX,[SP+18]
+  33 001c 05                      		addw AX,DE
+  34                             	
+  35 001d 14                      		movw DE,AX				;store the other one temp
+  36                             	
+  37 001e 36 00 00                		movw HL,#0				;Create a free memory space to keep each addition
+  38                             	
+  39                             		multi:
+  40 0021 17                      				movw AX,HL		;get prev value and add to next
+  41 0022 03                      				addw AX,BC
+  42 0023 B5                      				decw DE			;decrease counter
+  43 0024 16                      				movw HL,AX		;store in free memory space for next round
+  44                             	
+  45 0025 15                      				movw AX,DE		;move to compare
+  46 0026 44 00 00                				cmpw AX,#0
+  47 0029 DF F6                   				bnz $multi		;if DE reaches 0 means that 30 13s were added
+  48                             	
+  49 002b 17                      		movw AX,HL				;get value from temp and return
+  50 002c BD F0                   		movw 0xFFEF0,AX
+  51                             	
+  52                             	
+  53 002e D7                      	ret

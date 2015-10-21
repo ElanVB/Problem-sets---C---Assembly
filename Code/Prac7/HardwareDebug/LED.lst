@@ -1,0 +1,46 @@
+   1                             	# 1 "../src/LED.asm"
+   1                             	.global _switchLEDon
+   0                             	
+   0                             	
+   2                             	.global _switchLEDoff
+   3                             	.global _toggleLED
+   4                             	
+   5                             	_switchLEDon:
+   6                             	;; Switch LED on
+   7 0000 C3                      	push bc ;; Save the original contents of the two registers
+   8 0001 C1                      	push ax ;; we use by pushing it to the stack.
+   9                             	;; (push works with 16bit register pairs)
+  10 0002 32 07 FF                	movw bc, #0xff07 ;; Save the 16bit address of P7's register into
+  11                             	;; 16bit register pair BC
+  12 0005 49 00 00                	mov a, [bc] ;; Get the 8bit value stored at that address
+  13                             	;; and store it in register A
+  14 0008 6C 80                   	or a, #10000000B ;; Bitwise OR the value in A with 10000000
+  15 000a 48 00 00                	mov [bc], a ;; Set the value in P7's register to the value in A
+  16 000d C0                      	pop ax ;; Restore the contents of the two registers we used,
+  17 000e C2                      	pop bc ;; by popping it from the stack.
+  18                             	;; (pop works with register pairs)
+  19 000f D7                      	ret ;; exit this function
+  20                             	_switchLEDoff:
+  21                             	;; Switch LED off
+  22 0010 C3                      	push bc ;; Save the original contents of the two registers
+  23 0011 C1                      	push ax ;; we use by pushing it to the stack.
+  24 0012 32 07 FF                	movw bc, #0xff07 ;; Save the 16bit address of P7's register into
+  25                             	;; 16bit register pair BC
+  26 0015 49 00 00                	mov a, [bc] ;; Get the 8bit value stored at that address
+  27                             	;; and store it in register A
+  28 0018 5C 7F                   	and a, #01111111B ;; Bitwise AND the value in A with 01111111
+  29 001a 48 00 00                	mov [bc], a ;; Set the value in P7's register to the value in A
+  30 001d C0                      	pop ax ;; Restore the contents of the two registers we used,
+  31 001e C2                      	pop bc ;; by popping it from the stack.
+  32 001f D7                      	ret ;; exit this function
+  33                             	
+  34                             	_toggleLED:
+  35 0020 C3                      	push bc
+  36 0021 C1                      	push ax
+  37 0022 32 07 FF                	movw bc, #0xff07
+  38 0025 49 00 00                	mov a, [bc]
+  39 0028 7C 80                   	xor a, #10000000B
+  40 002a 48 00 00                	mov [bc], a
+  41 002d C0                      	pop ax
+  42 002e C2                      	pop bc
+  43 002f D7                      	ret

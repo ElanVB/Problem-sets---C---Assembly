@@ -1,0 +1,9 @@
+16:21:44 **** Clean-only build of configuration HardwareDebug for project Prac1 ****
+make -j4 clean 
+rm -rf *.lst *.lis *.lpp *.map  Prac1.x  libPrac1.a 
+rm -rf ./"src"/*.o ./"src"/*.d  Prac1.mot
+
+'Clean complete.'
+
+16:21:45 Build Finished (took 923ms)
+

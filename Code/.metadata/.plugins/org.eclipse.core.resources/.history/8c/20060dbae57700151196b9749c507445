@@ -1,0 +1,214 @@
+/***********************************************************************************************************************
+* DISCLAIMER
+* This software is supplied by Renesas Electronics Corporation and is only 
+* intended for use with Renesas products. No other uses are authorized. This 
+* software is owned by Renesas Electronics Corporation and is protected under 
+* all applicable laws, including copyright laws.
+* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING 
+* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT 
+* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE 
+* AND NON-INFRINGEMENT.  ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS 
+* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE 
+* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR 
+* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE 
+* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* Renesas reserves the right, without notice, to make changes to this software 
+* and to discontinue the availability of this software.  By using this software, 
+* you agree to the additional terms and conditions found by accessing the 
+* following link:
+* http://www.renesas.com/disclaimer
+*
+* Copyright (C) 2011, 2014 Renesas Electronics Corporation. All rights reserved.
+***********************************************************************************************************************/
+
+/***********************************************************************************************************************
+* File Name    : r_main.c
+* Version      : CodeGenerator for RL78/G13 V2.02.00.02 [11 Feb 2014]
+* Device(s)    : R5F100LE
+* Tool-Chain   : GCCRL78
+* Description  : This file implements main function.
+* Creation Date: 17/10/2015
+***********************************************************************************************************************/
+
+/***********************************************************************************************************************
+Includes
+***********************************************************************************************************************/
+#include "r_cg_macrodriver.h"
+#include "r_cg_cgc.h"
+#include "r_cg_port.h"
+#include "r_cg_serial.h"
+#include "r_cg_adc.h"
+#include "r_cg_timer.h"
+/* Start user code for include. Do not edit comment generated here */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+/* End user code. Do not edit comment generated here */
+#include "r_cg_userdefine.h"
+
+/***********************************************************************************************************************
+Global variables and functions
+***********************************************************************************************************************/
+/* Start user code for global. Do not edit comment generated here */
+#define	RX_BUF_LEN	16
+#define	TX_BUF_LEN	16
+
+int transmit = 0;
+int oneSec = 0;
+
+uint8_t uart2RxBuf[RX_BUF_LEN];
+uint16_t uart2RxCnt;
+uint8_t uart2RxFlag;
+uint8_t uart2TxBuf[TX_BUF_LEN];
+uint16_t uart2TxCnt;
+uint8_t uart2TxFlag;
+uint8_t	uart2RxErrFlag;	// UART2 Receive Error Flag
+uint8_t uart2RxOvrFlag;	// UART2 Receive Overrun Flag
+uint8_t ADC_Read;
+uint8_t adc_done_flag;
+MD_STATUS uart2Status;
+
+uint8_t counter  = 0;
+
+void convertToNum(uint8_t* buf);
+/* End user code. Do not edit comment generated here */
+void R_MAIN_UserInit(void);
+
+/***********************************************************************************************************************
+* Function Name: main
+* Description  : This function implements main function.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void main(void)
+{
+    R_MAIN_UserInit();
+    /* Start user code. Do not edit comment generated here */
+
+	R_UART2_Create();
+	R_UART2_Start();
+	uart2Status = R_UART2_Receive(&uart2RxBuf[0],1);	// Prime UART2 Rx
+
+	R_TAU0_Create();
+	R_TAU0_Channel0_Start();
+
+	R_PORT_Create();
+
+	R_ADC_Create();
+
+	while (1U)
+	{
+		if(oneSec)
+		{
+			if(transmit)
+				uart2Status = R_UART2_Send(uart2TxBuf, 1);
+
+			counter++;
+			oneSec = !oneSec;
+		}
+
+		if(uart2RxFlag)
+		{
+			uart2RxFlag = 0U;
+
+			if(uart2RxBuf[0] == 'b')
+			{
+				uart2TxBuf[0] = counter;
+				convertToNum(uart2TxBuf);
+				uart2Status = R_UART2_Send(uart2TxBuf, 3);
+			}
+			else
+			if(uart2RxBuf[0] == 'l')
+				P7_bit.no7 = !P7_bit.no7;
+			else
+			if(uart2RxBuf[0] == 'a')
+			{
+				uint8_t adcvalue = 0;
+				R_ADC_Start();
+				while(!adc_done_flag); //wait for interrupt?
+				adc_done_flag = 0;
+				R_ADC_Get_Result_8bit(&adcvalue);
+				uart2TxBuf[0] = adcvalue;
+				convertToNum(uart2TxBuf);
+				R_ADC_Stop();
+				uart2Status = R_UART2_Send(uart2TxBuf, 3);
+			}
+			else
+			if(uart2RxBuf[0] == 't')
+				transmit = !transmit;
+			else
+				uart2TxBuf[0] = uart2RxBuf[0];
+
+			// Prime UART2 Rx
+			uart2Status = R_UART2_Receive(uart2RxBuf, 1);
+		}
+
+		//If a character has been transmitted
+		if (uart2TxFlag)
+		{
+			// End of UART2 transmit
+			uart2TxFlag = 0U;   // clear tx flag
+		}
+
+		/*if(ADC_Read)//take this out? or put this in uartRx if statement where if a is recieved this happens....
+		{
+			ADC_Read = 0U;
+
+			uint8_t adcvalue = 0;
+			R_ADC_Start();
+			while(!adc_done_flag); //wait for interrupt?
+			adc_done_flag = 0;
+			R_ADC_Get_Result_8bit(&adcvalue);
+		}*/
+	}
+
+	R_UART2_Stop();
+	R_TAU0_Channel0_Stop();
+	//R_ADC_Stop();
+	/* End user code. Do not edit comment generated here */
+}
+
+
+/***********************************************************************************************************************
+* Function Name: R_MAIN_UserInit
+* Description  : This function adds user code before implementing main function.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_MAIN_UserInit(void)
+{
+    /* Start user code. Do not edit comment generated here */
+	EI();
+	/* End user code. Do not edit comment generated here */
+}
+
+/* Start user code for adding. Do not edit comment generated here */
+void convertToNum(uint8_t* buf)
+{
+	int num;
+	char * string = malloc(sizeof(char) * 3);
+	char temp = buf[0];
+	buf[2] = buf[1] = buf[0] = '0';
+
+	//convert temp from char into int then int 3 dif char ints
+	num = (int) temp;
+	sprintf(string, "%d", num);
+
+	if(temp < 10)
+	{
+		buf[0] = string[0];
+	}
+	else if(temp < 100)
+	{
+		buf[0] = string[0];
+		buf[1] = string[1];
+	}
+	else
+	{
+		buf[0] = string[0];
+		buf[1] = string[1];
+		buf[2] = string[2];
+	}
+}
+/* End user code. Do not edit comment generated here */

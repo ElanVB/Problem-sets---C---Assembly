@@ -1,0 +1,339 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+uart2RxErrFlag      0x1               ./src/r_main.o
+uart2TxBuf          0x10              ./src/r_main.o
+uart2TxFlag         0x1               ./src/r_main.o
+g_uart2_rx_count    0x2               ./src/r_cg_serial.o
+uart2RxOvrFlag      0x1               ./src/r_main.o
+gp_uart2_rx_address
+                    0x2               ./src/r_cg_serial.o
+uart2RxCnt          0x2               ./src/r_main.o
+g_uart2_tx_count    0x2               ./src/r_cg_serial.o
+gp_uart2_tx_address
+                    0x2               ./src/r_cg_serial.o
+uart2Status         0x2               ./src/r_main.o
+uart2RxBuf          0x10              ./src/r_main.o
+uart2TxCnt          0x2               ./src/r_main.o
+g_uart2_rx_length   0x2               ./src/r_cg_serial.o
+uart2RxFlag         0x1               ./src/r_main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+VEC              0x00000000         0x00000004
+IVEC             0x00000004         0x000000bc
+OPT              0x000000c0         0x00000004
+SEC_ID           0x000000c4         0x0000000a
+OCDSTAD          0x000000ce         0x0000000a
+OCDROM           0x0000fe00         0x00000200
+ROM              0x000000d8         0x0000fd28
+RAM              0x000fef00         0x00000fff
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.vec            0x00000000        0x4
+ *(.vec)
+ .vec           0x00000000        0x4 ./src/r_cg_vector_table.o
+                0x00000000                HardwareVectors
+
+.vects          0x00000004       0x7c
+ *(.vects)
+ .vects         0x00000004       0x7c ./src/r_cg_vector_table.o
+                0x00000004                Vectors
+
+.text           0x000000d8      0xaac
+ *(.text)
+ .text          0x000000d8       0xc3 ./src/r_cg_cgc.o
+                0x000000d8                R_CGC_Create
+ .text          0x0000019b       0x14 ./src/r_cg_cgc_user.o
+                0x0000019b                R_CGC_Get_ResetSource
+ .text          0x000001af      0x152 ./src/r_cg_it.o
+                0x000001af                R_IT_Create
+                0x0000024b                R_IT_Start
+                0x000002a6                R_IT_Stop
+ .text          0x00000301        0x1 ./src/r_cg_it_user.o
+                0x00000301                r_it_interrupt
+ .text          0x00000302       0x3c ./src/r_cg_port.o
+                0x00000302                R_PORT_Create
+ .text          0x0000033e        0x0 ./src/r_cg_port_user.o
+ .text          0x0000033e      0x535 ./src/r_cg_serial.o
+                0x0000033e                R_SAU1_Create
+                0x00000370                R_UART2_Create
+                0x00000605                R_UART2_Start
+                0x000006e8                R_UART2_Stop
+                0x000007a1                R_UART2_Receive
+                0x000007d7                R_UART2_Send
+ .text          0x00000873      0x163 ./src/r_cg_serial_user.o
+                0x00000873                r_uart2_interrupt_receive
+                0x00000952                r_uart2_interrupt_send
+ .text          0x000009d6        0xc ./src/r_cg_vector_table.o
+                0x000009d6                R_Dummy
+ .text          0x000009e2       0x3e ./src/r_hardware_setup.o
+                0x000009e2                R_Systeminit
+                0x00000a0f                HardwareSetup
+ .text          0x00000a20      0x103 ./src/r_main.o
+                0x00000a20                sendHello
+                0x00000a36                main
+                0x00000b1f                R_MAIN_UserInit
+ .text          0x00000b23       0x60 ./src/r_reset_program.o
+                0x00000b25                PowerON_Reset
+ *(.text.*)
+                0x00000b83                etext = .
+                0x00000b84                . = ALIGN (0x2)
+ *fill*         0x00000b83        0x1 
+
+.plt            0x00000b84       0x5c
+ .plt           0x00000b84       0x5c ./src/r_cg_serial.o
+
+.init
+ *(.init)
+
+.fini
+ *(.fini)
+
+.got
+ *(.got)
+ *(.got.plt)
+
+.rodata         0x00002000        0x0
+                0x00002000                . = ALIGN (0x2)
+ *(.rodata)
+ *(.rodata.*)
+                0x00002000                _erodata = .
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame
+ *(.eh_frame)
+
+.jcr
+ *(.jcr)
+
+.tors           0x00000be0        0x0
+                0x00000be0                __CTOR_LIST__ = .
+                0x00000be0                . = ALIGN (0x2)
+                0x00000be0                ___ctors = .
+ *(.ctors)
+                0x00000be0                ___ctors_end = .
+                0x00000be0                __CTOR_END__ = .
+                0x00000be0                __DTOR_LIST__ = .
+                0x00000be0                ___dtors = .
+ *(.dtors)
+                0x00000be0                ___dtors_end = .
+                0x00000be0                __DTOR_END__ = .
+                0x00000be0                . = ALIGN (0x2)
+                0x00000be0                _mdata = .
+
+.data           0x000fef00        0x0 load address 0x00000be0
+                0x000fef00                . = ALIGN (0x2)
+                0x000fef00                _data = .
+ *(.data)
+ .data          0x000fef00        0x0 ./src/r_cg_cgc.o
+ .data          0x000fef00        0x0 ./src/r_cg_cgc_user.o
+ .data          0x000fef00        0x0 ./src/r_cg_it.o
+ .data          0x000fef00        0x0 ./src/r_cg_it_user.o
+ .data          0x000fef00        0x0 ./src/r_cg_port.o
+ .data          0x000fef00        0x0 ./src/r_cg_port_user.o
+ .data          0x000fef00        0x0 ./src/r_cg_serial.o
+ .data          0x000fef00        0x0 ./src/r_cg_serial_user.o
+ .data          0x000fef00        0x0 ./src/r_cg_vector_table.o
+ .data          0x000fef00        0x0 ./src/r_hardware_setup.o
+ .data          0x000fef00        0x0 ./src/r_main.o
+ .data          0x000fef00        0x0 ./src/r_reset_program.o
+ *(.data.*)
+                0x000fef00                . = ALIGN (0x2)
+                0x000fef00                _edata = .
+
+.bss            0x000fef00       0x38 load address 0x00000be0
+                0x000fef00                . = ALIGN (0x2)
+                0x000fef00                _bss = .
+ *(.bss)
+ .bss           0x000fef00        0x0 ./src/r_cg_cgc.o
+ .bss           0x000fef00        0x0 ./src/r_cg_cgc_user.o
+ .bss           0x000fef00        0x0 ./src/r_cg_it.o
+ .bss           0x000fef00        0x0 ./src/r_cg_it_user.o
+ .bss           0x000fef00        0x0 ./src/r_cg_port.o
+ .bss           0x000fef00        0x0 ./src/r_cg_port_user.o
+ .bss           0x000fef00        0x0 ./src/r_cg_serial.o
+ .bss           0x000fef00        0x0 ./src/r_cg_serial_user.o
+ .bss           0x000fef00        0x0 ./src/r_cg_vector_table.o
+ .bss           0x000fef00        0x0 ./src/r_hardware_setup.o
+ .bss           0x000fef00        0x2 ./src/r_main.o
+ .bss           0x000fef02        0x0 ./src/r_reset_program.o
+ *(.bss.**)
+                0x000fef02                . = ALIGN (0x2)
+ *(COMMON)
+ COMMON         0x000fef02        0xa ./src/r_cg_serial.o
+                0x000fef02                g_uart2_rx_count
+                0x000fef04                gp_uart2_rx_address
+                0x000fef06                g_uart2_tx_count
+                0x000fef08                gp_uart2_tx_address
+                0x000fef0a                g_uart2_rx_length
+ COMMON         0x000fef0c       0x2b ./src/r_main.o
+                0x000fef0c                uart2RxErrFlag
+                0x000fef0d                uart2TxBuf
+                0x000fef1d                uart2TxFlag
+                0x000fef1e                uart2RxOvrFlag
+                0x000fef20                uart2RxCnt
+                0x000fef22                uart2Status
+                0x000fef24                uart2RxBuf
+                0x000fef34                uart2TxCnt
+                0x000fef36                uart2RxFlag
+                0x000fef38                . = ALIGN (0x2)
+ *fill*         0x000fef37        0x1 
+                0x000fef38                _ebss = .
+                0x000fef38                _end = .
+
+.stack          0x000ffe00        0x0
+                0x000ffe00                _stack = .
+
+.option_bytes   0x000000c0        0x4
+ *(.option_bytes)
+ .option_bytes  0x000000c0        0x4 ./src/r_cg_vector_table.o
+                0x000000c0                Option_Bytes
+
+.security_id    0x000000c4        0xa
+ *(.security_id)
+ .security_id   0x000000c4        0xa ./src/r_cg_vector_table.o
+                0x000000c4                Security_Id
+LOAD ./src/r_cg_cgc.o
+LOAD ./src/r_cg_cgc_user.o
+LOAD ./src/r_cg_it.o
+LOAD ./src/r_cg_it_user.o
+LOAD ./src/r_cg_port.o
+LOAD ./src/r_cg_port_user.o
+LOAD ./src/r_cg_serial.o
+LOAD ./src/r_cg_serial_user.o
+LOAD ./src/r_cg_vector_table.o
+LOAD ./src/r_hardware_setup.o
+LOAD ./src/r_main.o
+LOAD ./src/r_reset_program.o
+START GROUP
+LOAD C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/lib\liboptm.a
+LOAD C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/lib\liboptc.a
+LOAD C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/lib/gcc/rl78-elf//4.8-GNURL78_v14.01\libgcc.a
+END GROUP
+OUTPUT(uartTest.x elf32-rl78)
+
+.debug_frame    0x00000000      0x344
+ .debug_frame   0x00000000       0x2c ./src/r_cg_cgc.o
+ .debug_frame   0x0000002c       0x2c ./src/r_cg_cgc_user.o
+ .debug_frame   0x00000058       0x44 ./src/r_cg_it.o
+ .debug_frame   0x0000009c       0x24 ./src/r_cg_it_user.o
+ .debug_frame   0x000000c0       0x24 ./src/r_cg_port.o
+ .debug_frame   0x000000e4       0x94 ./src/r_cg_serial.o
+ .debug_frame   0x00000178      0x104 ./src/r_cg_serial_user.o
+ .debug_frame   0x0000027c       0x40 ./src/r_cg_vector_table.o
+ .debug_frame   0x000002bc       0x3c ./src/r_hardware_setup.o
+ .debug_frame   0x000002f8       0x4c ./src/r_main.o
+
+.debug_info     0x00000000      0xf1d
+ .debug_info    0x00000000      0x156 ./src/r_cg_cgc.o
+ .debug_info    0x00000156       0x7b ./src/r_cg_cgc_user.o
+ .debug_info    0x000001d1      0x1d5 ./src/r_cg_it.o
+ .debug_info    0x000003a6       0x61 ./src/r_cg_it_user.o
+ .debug_info    0x00000407      0x178 ./src/r_cg_port.o
+ .debug_info    0x0000057f       0x48 ./src/r_cg_port_user.o
+ .debug_info    0x000005c7      0x35c ./src/r_cg_serial.o
+ .debug_info    0x00000923      0x186 ./src/r_cg_serial_user.o
+ .debug_info    0x00000aa9      0x108 ./src/r_cg_vector_table.o
+ .debug_info    0x00000bb1       0x7d ./src/r_hardware_setup.o
+ .debug_info    0x00000c2e      0x21a ./src/r_main.o
+ .debug_info    0x00000e48       0xd5 ./src/r_reset_program.o
+
+.debug_abbrev   0x00000000      0x65c
+ .debug_abbrev  0x00000000       0x9a ./src/r_cg_cgc.o
+ .debug_abbrev  0x0000009a       0x53 ./src/r_cg_cgc_user.o
+ .debug_abbrev  0x000000ed       0xb8 ./src/r_cg_it.o
+ .debug_abbrev  0x000001a5       0x37 ./src/r_cg_it_user.o
+ .debug_abbrev  0x000001dc       0x8f ./src/r_cg_port.o
+ .debug_abbrev  0x0000026b       0x1b ./src/r_cg_port_user.o
+ .debug_abbrev  0x00000286      0x132 ./src/r_cg_serial.o
+ .debug_abbrev  0x000003b8       0xcb ./src/r_cg_serial_user.o
+ .debug_abbrev  0x00000483       0x7c ./src/r_cg_vector_table.o
+ .debug_abbrev  0x000004ff       0x5c ./src/r_hardware_setup.o
+ .debug_abbrev  0x0000055b       0xed ./src/r_main.o
+ .debug_abbrev  0x00000648       0x14 ./src/r_reset_program.o
+
+.debug_aranges  0x00000000      0x178
+ .debug_aranges
+                0x00000000       0x20 ./src/r_cg_cgc.o
+ .debug_aranges
+                0x00000020       0x20 ./src/r_cg_cgc_user.o
+ .debug_aranges
+                0x00000040       0x20 ./src/r_cg_it.o
+ .debug_aranges
+                0x00000060       0x20 ./src/r_cg_it_user.o
+ .debug_aranges
+                0x00000080       0x20 ./src/r_cg_port.o
+ .debug_aranges
+                0x000000a0       0x18 ./src/r_cg_port_user.o
+ .debug_aranges
+                0x000000b8       0x20 ./src/r_cg_serial.o
+ .debug_aranges
+                0x000000d8       0x20 ./src/r_cg_serial_user.o
+ .debug_aranges
+                0x000000f8       0x20 ./src/r_cg_vector_table.o
+ .debug_aranges
+                0x00000118       0x20 ./src/r_hardware_setup.o
+ .debug_aranges
+                0x00000138       0x20 ./src/r_main.o
+ .debug_aranges
+                0x00000158       0x20 ./src/r_reset_program.o
+
+.debug_line     0x00000000      0x5a5
+ .debug_line    0x00000000       0x84 ./src/r_cg_cgc.o
+ .debug_line    0x00000084       0x5e ./src/r_cg_cgc_user.o
+ .debug_line    0x000000e2       0x99 ./src/r_cg_it.o
+ .debug_line    0x0000017b       0x46 ./src/r_cg_it_user.o
+ .debug_line    0x000001c1       0x67 ./src/r_cg_port.o
+ .debug_line    0x00000228       0x1d ./src/r_cg_port_user.o
+ .debug_line    0x00000245       0xfa ./src/r_cg_serial.o
+ .debug_line    0x0000033f       0x96 ./src/r_cg_serial_user.o
+ .debug_line    0x000003d5       0x62 ./src/r_cg_vector_table.o
+ .debug_line    0x00000437       0x57 ./src/r_hardware_setup.o
+ .debug_line    0x0000048e       0x9e ./src/r_main.o
+ .debug_line    0x0000052c       0x79 ./src/r_reset_program.o
+
+.debug_str      0x00000000      0x5dd
+ .debug_str     0x00000000      0x19d ./src/r_cg_cgc.o
+                                0x1a9 (size before relaxing)
+ .debug_str     0x0000019d       0x40 ./src/r_cg_cgc_user.o
+                                0x1a3 (size before relaxing)
+ .debug_str     0x000001dd       0x5c ./src/r_cg_it.o
+                                0x1eb (size before relaxing)
+ .debug_str     0x00000239       0x25 ./src/r_cg_it_user.o
+                                0x188 (size before relaxing)
+ .debug_str     0x0000025e       0x3e ./src/r_cg_port.o
+                                0x1b3 (size before relaxing)
+ .debug_str     0x0000029c       0x18 ./src/r_cg_port_user.o
+                                0x17b (size before relaxing)
+ .debug_str     0x000002b4      0x12b ./src/r_cg_serial.o
+                                0x2d0 (size before relaxing)
+ .debug_str     0x000003df       0xff ./src/r_cg_serial_user.o
+                                0x2cf (size before relaxing)
+ .debug_str     0x000004de       0x55 ./src/r_cg_vector_table.o
+                                0x1c8 (size before relaxing)
+ .debug_str     0x00000533       0x35 ./src/r_hardware_setup.o
+                                0x198 (size before relaxing)
+ .debug_str     0x00000568       0x75 ./src/r_main.o
+                                0x240 (size before relaxing)
+
+.comment        0x00000000       0x8b
+ .comment       0x00000000       0x8b ./src/r_cg_cgc.o
+                                 0x8c (size before relaxing)
+ .comment       0x00000000       0x8c ./src/r_cg_cgc_user.o
+ .comment       0x00000000       0x8c ./src/r_cg_it.o
+ .comment       0x00000000       0x8c ./src/r_cg_it_user.o
+ .comment       0x00000000       0x8c ./src/r_cg_port.o
+ .comment       0x00000000       0x8c ./src/r_cg_port_user.o
+ .comment       0x00000000       0x8c ./src/r_cg_serial.o
+ .comment       0x00000000       0x8c ./src/r_cg_serial_user.o
+ .comment       0x00000000       0x8c ./src/r_cg_vector_table.o
+ .comment       0x00000000       0x8c ./src/r_hardware_setup.o
+ .comment       0x00000000       0x8c ./src/r_main.o

@@ -1,0 +1,21 @@
+17:28:21 **** Incremental Build of configuration HardwareDebug for project Prac4 ****
+make -j4 all 
+'Scanning and building file: ../src/checksum.asm'
+'Invoking: Scanner and Compiler'
+rl78-elf-gcc -MM -MP -MF "src/checksum.d" -MT"src/checksum.o" -MT"src/checksum.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -Wa,-gdwarf2 -x assembler-with-cpp -o"src/checksum.o" "../src/checksum.asm"
+rl78-elf-gcc -Wa,-adlhn="checksum.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -Wa,-gdwarf2 -c -x assembler-with-cpp  -o "src/checksum.o" "../src/checksum.asm"
+'Finished scanning and building: ../src/checksum.asm'
+
+'Invoking: Linker'
+'Building target:'
+rl78-elf-ld -o "Prac4.x" -T"E:\Google Drive\Second Year Engineering\E en E\Computer systems semseter 2\Prakties\2015\Code\Prac4\HardwareDebug\Prac4_HardwareDebug_auto.gsi" -T"E:\Google Drive\Second Year Engineering\E en E\Computer systems semseter 2\Prakties\2015\Code\Prac4\HardwareDebug\LinkerSubCommand.tmp"    libPrac4.a  -M=Prac4.map -e_PowerON_Reset -L"E:\Google Drive\Second Year Engineering\E en E\Computer systems semseter 2\Prakties\2015\Code\Prac4\HardwareDebug" -L"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v14.01" --start-group -lPrac4 -lgcc --end-group
+'Finished building:'
+
+'Invoking: Objcopy'
+rl78-elf-objcopy -O srec   Prac4.x "Prac4.mot"
+'Finished building target:'
+
+'Build complete.'
+
+17:28:22 Build Finished (took 685ms)
+

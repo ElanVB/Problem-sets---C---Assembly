@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+<libraryInfo home="C:\Renesas\e2_studio\eclipse" version="1.7.0_45">
+<bootpath>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\resources.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\rt.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\sunrsasign.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\jsse.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\jce.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\charsets.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\jfr.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\ext"/>
+<entry path="C:\Windows\Sun\Java\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo home="C:\Renesas\e2_studio\eclipse\jre" version="1.7.0_45">
+<bootpath>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\resources.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\rt.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\sunrsasign.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\jsse.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\jce.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\charsets.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\jfr.jar"/>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\ext"/>
+<entry path="C:\Windows\Sun\Java\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="C:\Renesas\e2_studio\eclipse\jre\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+</libraryInfos>

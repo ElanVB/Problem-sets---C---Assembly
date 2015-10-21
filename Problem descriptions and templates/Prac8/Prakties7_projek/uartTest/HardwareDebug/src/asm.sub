@@ -1,0 +1,1 @@
+ -Wa,-adlhn="r_reset_program.lst" -nostdinc -I"C:\\PROGRA~2\\KPIT\\GNURL7~1.01-\\rl78-ELF/rl78-elf/optlibinc" -g2 -g -Wa,-gdwarf2 

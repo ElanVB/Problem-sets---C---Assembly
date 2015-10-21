@@ -1,0 +1,70 @@
+   1                             	# 1 "../src/bubblesort.asm"
+   1                             	;;Elan van Biljon - 18384439
+   0                             	
+   0                             	
+   2                             	.global _bubble_sort
+   3                             	
+   4                             	_bubble_sort:	;;this is technically selection sort (decending)
+   5                             	
+   6 0000 FB F8 FF                	movw hl, sp							;;get the stack pointer
+   7 0003 AC 04                   	movw ax, [hl + 4]					;;get past the return space
+   8 0005 16                      	movw hl, ax							;;store the position of first letter in hl so that it can be dereferenced
+   9                             	
+  10 0006 EF 00                   	br $count							;;these branch statements and lables are quite unnesicary but if I move my blocks o
+  11                             	
+  12                             	count:								;;start of the block of code that counts how long the sentence is
+  13 0008 53 00                   	mov b, #0							;;set the upper pointer to zero
+  14                             	
+  15                             	subCount:
+  16 000a 61 C9                   	mov a, [hl + b]						;;move the current letter into a so that it can me compared to zero
+  17 000c D1                      	cmp0 a								;;check if it is the end of the string
+  18 000d DD 03                   	bz $preloop 						;;if it is jump to the main program loop
+  19 000f 83                      	inc b								;;increment b (count a letter)
+  20 0010 EF F8                   	br $subCount						;;branch back to the sub loop
+  21                             	
+  22                             	
+  23                             	preloop:
+  24 0012 93                      	dec b								;;(the ending char '/0' has been counted)
+  25 0013 63                      	mov a, b
+  26 0014 75                      	mov d, a							;;Store the number of chars in d
+  27 0015 53 FF                   	mov b, #-1							;;set the counter b to -1
+  28                             	
+  29                             	outerLoop:
+  30 0017 83                      	inc b								;;increment b (the posistion of the lower counter)
+  31 0018 63                      	mov a, b							;;initialize c to b
+  32 0019 72                      	mov c, a
+  33                             	
+  34                             	innerLoop:
+  35 001a 82                      	inc c								;;increment c (the higher counter)
+  36                             	
+  37                             	;;compare the letters at b and c
+  38 001b 61 E9                   	mov a, [hl + c]						;;copy the character at the higher counter to e
+  39 001d 74                      	mov e, a
+  40 001e 61 C9                   	mov a,  [hl + b]					;;copy the character at the lower counter to a
+  41 0020 61 4C                   	cmp a, e							;;compare the char at the low index to the char at the high
+  42 0022 61 D3 13                	bnh $swap							;;when the char at the lower index is lesser that the char at the high index branch
+  43                             	
+  44                             	checks:
+  45                             	;;check if outer loop is done
+  46 0025 63                      	mov a, b
+  47 0026 81                      	inc a								;;(the lower counter must only get to the second last char)
+  48 0027 61 4D                   	cmp a, d							;;compare the lower index to the length of the string
+  49 0029 61 C3 14                	bh $end
+  50 002c DD 12                   	bz $end								;;if the counter is higher than or equal to the length of the string end the program
+  51                             	
+  52                             	;;check if the inner loop is done
+  53 002e 62                      	mov a, c
+  54 002f 61 4D                   	cmp a, d							;;compare the higher index to the length of the string
+  55 0031 DD E4                   	bz $outerLoop						;;if the counter is at the last char, exit innner loop
+  56 0033 61 D3 E4                	bnh $innerLoop						;;if the counter is lower that the lenght of the string, loop
+  57 0036 EF DF                   	br $outerLoop						;;else end the inner loop
+  58                             	
+  59                             	swap:
+  60 0038 61 E9                   	mov a, [hl + c]						;;move the higher index char into the a register
+  61 003a 61 B9                   	xch a, [hl + b]						;;exchance the contents of a and the char at the lower index
+  62 003c 61 F9                   	mov [hl + c], a						;;move the contents of a (now the lower char) into the higher index
+  63                             	
+  64 003e EF E5                   	br $checks
+  65                             	
+  66                             	end:
+  67 0040 D7                      	ret

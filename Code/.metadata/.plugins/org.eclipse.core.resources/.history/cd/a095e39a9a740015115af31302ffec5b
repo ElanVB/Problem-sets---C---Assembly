@@ -1,0 +1,249 @@
+/*
+ ============================================================================
+ Name        : client.c
+ Author      : HA Engelbrecht
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Client application - Part 1
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "tests.h"
+#include "client.h"
+
+char *convertToString(const JSON_Value *rootValue);
+
+int getStringLength(const char *string);
+int hexDigit2Dec(char hexDigit);
+
+void appendToLogFile(int level, const char *location, const char *part1, const char *part2);
+void generateEncryptionKey(char *key, char *sessionID, char *username, char *password);
+void encryptMessage(char *encryptedMessage, char *message, char *encryptionKey);
+void generateChecksum(char *checksum, char *message);
+
+// Main function used for testing functions
+int main(void)
+{
+	setbuf(stdout,0);
+	testJSONUtils();
+	return 0;
+}
+
+
+/**************************************************
+ * Part 1
+ **************************************************/
+//3.4.1 Creating JSON objects
+//******************************************************************
+JSON_Value* createJSONObject();
+
+JSON_Value* createJSONObject()
+{
+	return json_value_init_object();
+}
+
+
+//3.4.2 Read value for a specified name from a given JSON object
+//******************************************************************
+const char* getValueFromName(const JSON_Value *rootValue, const char *name)
+{
+	JSON_Object *rootObject = json_value_get_object(rootValue);
+	return json_object_dotget_string(rootObject, name);
+}
+
+
+//3.4.3 Write name/value pair to JSON object
+//******************************************************************
+void setNameValuePair(const JSON_Value *rootValue, const char *name, const char *value)
+{
+	JSON_Object *rootObject = json_value_get_object(rootValue);
+	json_object_set_string(rootObject, name, value);
+}
+
+
+//3.4.4 Get string representation of a JSON object
+//******************************************************************
+char *convertToString(const JSON_Value *rootValue)
+{
+	return json_serialize_to_string_pretty(rootValue);
+}
+
+
+//3.4.5 Determine length of string (character array)
+//******************************************************************
+int getStringLength(const char *string)
+{
+	int length = 0;
+	while(string[length] != '\0')
+	{
+		length++;
+	}
+
+	return length;
+}
+
+
+//3.4.6 Remove white space from a string (character array)
+//******************************************************************
+void removeWhiteSpace(char *stringNoSpace, char *string)
+{
+	int stringCount = 0, noSpaceStringCount = 0;
+	while(string[stringCount] != '\0')
+	{
+		if(string[stringCount] != ' ' && string[stringCount] != '\t' && string[stringCount] != '\n')
+		{
+			stringNoSpace[noSpaceStringCount] = string[stringCount];
+			noSpaceStringCount++;
+		}
+		stringCount++;
+	}
+
+	stringNoSpace[noSpaceStringCount] = '\0';
+}
+
+
+//3.4.7 Convert hexadecimal digit to a decimal number
+//******************************************************************
+int hexDigit2Dec(char hexDigit)
+{
+		if(hexDigit >= '0' && hexDigit <= '9')
+			return (int)hexDigit - 48;
+	else 	if(hexDigit >= 'A' && hexDigit <= 'F')
+			return (int)hexDigit - 55;
+	else	if(hexDigit >= 'a' && hexDigit <= 'f')
+			return (int)hexDigit - 87;
+	else	printf("error with hexDigit2Dec, %c is not hex", hexDigit);
+
+	return 0;
+}
+
+
+/**************************************************
+ * Part 2
+ **************************************************/
+//4.4.1 Append a line describing an event to a log file
+//******************************************************************
+void appendToLogFile(int level, const char *location, const char *part1, const char *part2)
+{
+	FILE *file = fopen("log.txt", "ab+"); //open the log.txt file in append mode
+	char *levelS; //create a string to store the string representation of the error code
+
+		if(level == 0) 	levelS = "ERROR";
+	else 	if(level == 1) 	levelS = "WARNING";
+	else 	if(level == 2)	levelS = "INFO";
+	else 			printf("error - level %d not defined", level);
+
+	fprintf(file, "[%s] in %s : %s %s\n", levelS, location, part1, part2); //write the string rep. to the file log.txt
+	close(file); //close the file
+}
+
+
+//4.4.2 Calculate a checksum of a string (character array)
+//******************************************************************
+void generateChecksum(char *checksum, char *message)
+{
+	int  i = 0, value = 0, sum = 0; //create various integers to strore values for the calculations
+
+	//instert code to remove white space from message but strore it in new variable messageNWS
+	char *messageNWS = malloc(sizeof(char) * getStringLength(message));
+	removeWhiteSpace(messageNWS, message);
+
+	while(messageNWS[i] != '\0') //while the message has another letter ie, stop if you get to the terminating character '\0'
+	{ //this is an algorithim that the Project page gives
+		value = 65521 * ((int) messageNWS[i]); //convert the next letter to a number and multiply it with 65521
+		sum = (sum + value) % 65535; // add the sum to the total and modulus it with 65535
+		i++; //increment counter
+	}
+	//insert the code to convert the sum to hex and strore it tin the checksum char pointer
+	free(messageNWS);
+}
+
+
+//4.4.3 Generate an encryption key
+//******************************************************************
+void generateEncryptionKey(char *key, char *sessionID, char *username, char *password)
+{
+	unsigned long sum = 0, i = 0, value = 0; //initialize various ints
+	char *bigString;
+	sscanf(bigString, "%s%s%s", sessionID, username, password); //concatenate all the strings - this might not work, in which case you would need some for loops or maybe a scanf function.....
+
+	while(bigString[i] != '\0') //this is an algorithim that the Project page gives
+	{
+		value = 18014398509481984 * ((int) bigString[i]);
+		sum = (sum + value) % 9146744073709551614;
+		i++;
+	}
+	//insert the code to convert the sum to hex and strore it tin the key char pointer
+}
+
+
+//4.4.4 Encrypt a message
+//******************************************************************
+void encryptMessage(char *encryptedMessage, char *message, char *encryptionKey)
+{
+	int i = 0;
+	while(message[i] != '\0') //while there is another letter in the message
+	{
+		encryptedMessage[i] = (char) ((int) message[i] + hexDigit2Dec(encryptionKey[i % 16])); 	//take the next letter in the message and add the dec value of the next letter in the encryption key
+		i++;								//(the key is only 16 digits long and must cycle - thus the % 16)
+	}
+
+}
+
+
+//4.4.5 Decrypt an encrypted message
+//******************************************************************
+void decryptMessage(char *decryptedMessage, char *message, char *encryptionKey);
+
+void decryptMessage(char *decryptedMessage, char *message, char *encryptionKey)
+{
+	int i = 0;
+	while(message[i] != '\0') //while there is another letter in the message
+	{
+		decryptedMessage[i] = (char) ((int) message[i] - hex2Dec(encryptionKey[i % 16]));	//take the next letter in the message and subtract the dec value of the next letter in the encryption key
+		i++;																				//(the key is only 16 digits long and must cycle - thus the % 16)
+	}
+}
+
+
+/**************************************************
+ * Part 3
+ **************************************************/
+void generateAuthorisationContent(JSON_Value *content, const char *username)
+{
+
+}
+
+
+void processAuthorisationResponse(char *sessionID, const JSON_Value *responseValue)
+{
+
+}
+
+
+void generateChallengeContent(JSON_Value* content, const char *sessionID, const char *message, const char* encryptionKey)
+{
+
+}
+
+
+int processChallengeResponse(const JSON_Value *responseValue)
+{
+	return 0;
+}
+
+
+void generateWhyCommandContent(JSON_Value *content, const char* sessionID, const char* encryptionKey)
+{
+
+}
+
+
+void processWhyCommandResponse(char *answer, const JSON_Value *responseValue, const char *encryptionKey)
+{
+}
+
+

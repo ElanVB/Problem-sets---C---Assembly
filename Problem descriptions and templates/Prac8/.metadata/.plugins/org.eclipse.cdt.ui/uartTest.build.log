@@ -1,0 +1,6 @@
+16:14:32 **** Incremental Build of configuration HardwareDebug for project uartTest ****
+make -j4 all 
+'Build complete.'
+
+16:14:32 Build Finished (took 468ms)
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ExternalProjectImportWizard">
+		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\Users\Elan\Desktop\CP143Project"/>
+			<item value="C:\Users\Elan\Desktop\Desktop\SemesterProject"/>
+			<item value="C:\Users\Elan\Google Drive\Second Year Engineering\E en E\CS semseter 2\Prakties\2015\Prac8"/>
+			<item value="C:\Users\Elan\Google Drive\Second Year Engineering\E en E\CS semseter 2\Prakties\2015\Code"/>
+			<item value="E:\Google Drive\Second Year Engineering\E en E\Computer systems semseter 2\Prakties\2015\Code"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+		</list>
+	</section>
+</section>

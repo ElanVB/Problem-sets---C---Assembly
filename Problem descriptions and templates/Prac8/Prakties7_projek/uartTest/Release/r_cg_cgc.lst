@@ -1,0 +1,84 @@
+   1                             	r8	=	0xffef0
+   2                             	r16	=	0xffee8
+   3                             	r24	=	0xffee0
+   4                             	r9	=	0xffef1
+   5                             	r17	=	0xffee9
+   6                             	r25	=	0xffee1
+   7                             	r10	=	0xffef2
+   8                             	r18	=	0xffeea
+   9                             	r26	=	0xffee2
+  10                             	r11	=	0xffef3
+  11                             	r19	=	0xffeeb
+  12                             	r27	=	0xffee3
+  13                             	r12	=	0xffef4
+  14                             	r20	=	0xffeec
+  15                             	r28	=	0xffee4
+  16                             	r13	=	0xffef5
+  17                             	r21	=	0xffeed
+  18                             	r29	=	0xffee5
+  19                             	r14	=	0xffef6
+  20                             	r22	=	0xffeee
+  21                             	r30	=	0xffee6
+  22                             	r15	=	0xffef7
+  23                             	r23	=	0xffeef
+  24                             	r31	=	0xffee7
+  25                             		.section	.text.startup.main,"ax",@progbits
+  26                             		.global	_main
+  28                             	_main:
+  29                             		; start of function
+  30                             		; outgoing: 4 bytes
+  31 0000 20 04                   		subw	sp, #4
+  32                             	 ; 117 "../src/r_main.c" 1
+  33 0002 71 7A FA                		ei
+  34                             	 ; 0 "" 2
+  35 0005 FC 00 00 00             		call	!!%code(_R_UART2_Create)
+  36 0009 FC 00 00 00             		call	!!%code(_R_UART2_Start)
+  37 000d 30 00 00                		movw	ax, #_uart2RxBuf
+  38 0010 B8 00                   		movw	[sp], ax
+  39 0012 E6                      		onew	ax
+  40 0013 B8 02                   		movw	[sp+2], ax
+  41 0015 FC 00 00 00             		call	!!%code(_R_UART2_Receive)
+  42 0019 AD F0                   		movw	ax, r8
+  43 001b BF 00 00                		movw	!_uart2Status, ax
+  44                             	.L4:
+  45 001e D5 00 00                		cmp0	!_uart2RxFlag 
+  46 0021 61 F8                   		sknz 
+  47 0023 EC 53 00 00             		br	!!.L2
+  48 0027 F5 00 00                		clrb	!_uart2RxFlag
+  49 002a 8F 00 00                		mov	a, !_uart2RxBuf
+  50 002d 81                      		inc	a
+  51 002e 9F 00 00                		mov	!_uart2TxBuf, a
+  52 0031 30 00 00                		movw	ax, #_uart2TxBuf
+  53 0034 B8 00                   		movw	[sp], ax
+  54 0036 E6                      		onew	ax
+  55 0037 B8 02                   		movw	[sp+2], ax
+  56 0039 FC 00 00 00             		call	!!%code(_R_UART2_Send)
+  57 003d AD F0                   		movw	ax, r8
+  58 003f BF 00 00                		movw	!_uart2Status, ax
+  59 0042 30 00 00                		movw	ax, #_uart2RxBuf
+  60 0045 B8 00                   		movw	[sp], ax
+  61 0047 E6                      		onew	ax
+  62 0048 B8 02                   		movw	[sp+2], ax
+  63 004a FC 00 00 00             		call	!!%code(_R_UART2_Receive)
+  64 004e AD F0                   		movw	ax, r8
+  65 0050 BF 00 00                		movw	!_uart2Status, ax
+  66                             	.L2:
+  67 0053 F5 00 00                		clrb	!_uart2TxFlag
+  68 0056 EC 1E 00 00             		br	!!.L4
+  70                             		.section	.text.R_MAIN_UserInit,"ax",@progbits
+  71                             		.global	_R_MAIN_UserInit
+  73                             	_R_MAIN_UserInit:
+  74                             	 ; 117 "../src/r_main.c" 1
+  75 0000 71 7A FA                		ei
+  76                             	 ; 0 "" 2
+  77 0003 D7                      		ret
+  79                             		.comm	_uart2Status,2,2
+  80                             		.comm	_uart2RxOvrFlag,1,1
+  81                             		.comm	_uart2RxErrFlag,1,1
+  82                             		.comm	_uart2TxFlag,1,1
+  83                             		.comm	_uart2TxCnt,2,2
+  84                             		.comm	_uart2TxBuf,16,1
+  85                             		.comm	_uart2RxFlag,1,1
+  86                             		.comm	_uart2RxCnt,2,2
+  87                             		.comm	_uart2RxBuf,16,1
+  88                             		.ident	"GCC: (GNU) 4.8-GNURL78_v14.01 20140402 (prerelease (renesas-13r1-16)) (GNUPro 12r1) (Based

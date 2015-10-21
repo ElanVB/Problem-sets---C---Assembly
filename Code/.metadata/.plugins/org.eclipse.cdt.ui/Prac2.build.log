@@ -1,0 +1,21 @@
+16:54:28 **** Incremental Build of configuration HardwareDebug for project Prac2 ****
+make -j4 all 
+'Scanning and building file: ../src/changecase.asm'
+'Invoking: Scanner and Compiler'
+rl78-elf-gcc -MM -MP -MF "src/changecase.d" -MT"src/changecase.o" -MT"src/changecase.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -Wa,-gdwarf2 -x assembler-with-cpp -o"src/changecase.o" "../src/changecase.asm"
+rl78-elf-gcc -Wa,-adlhn="changecase.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -Wa,-gdwarf2 -c -x assembler-with-cpp  -o "src/changecase.o" "../src/changecase.asm"
+'Finished scanning and building: ../src/changecase.asm'
+
+'Invoking: Linker'
+'Building target:'
+rl78-elf-ld -o "Prac2.x" -T"E:\Google Drive\Second Year Engineering\E en E\Computer systems semseter 2\Prakties\2015\Code\Prac2\HardwareDebug\Prac2_HardwareDebug_auto.gsi" -T"E:\Google Drive\Second Year Engineering\E en E\Computer systems semseter 2\Prakties\2015\Code\Prac2\HardwareDebug\LinkerSubCommand.tmp"    libPrac2.a  -M=Prac2.map -e_PowerON_Reset -L"E:\Google Drive\Second Year Engineering\E en E\Computer systems semseter 2\Prakties\2015\Code\Prac2\HardwareDebug" -L"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v14.01" --start-group -lPrac2 -lgcc --end-group
+'Finished building:'
+
+'Invoking: Objcopy'
+rl78-elf-objcopy -O srec   Prac2.x "Prac2.mot"
+'Finished building target:'
+
+'Build complete.'
+
+16:54:29 Build Finished (took 786ms)
+

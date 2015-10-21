@@ -1,0 +1,10 @@
+<RfpWorkspace>
+  <ProductVersion>2.03.00.00</ProductVersion>
+  <FormatVersion>2.0</FormatVersion>
+  <WindowMode>1</WindowMode>
+  <ActiveProjectName>pgm</ActiveProjectName>
+  <Name project="pgm">
+    <RelativePath>pgm\pgm.rpj</RelativePath>
+    <ActiveProgramName />
+  </Name>
+</RfpWorkspace>

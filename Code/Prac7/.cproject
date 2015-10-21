@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.renesas.cdt.RL78.configuration.debug.391128543">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.renesas.cdt.RL78.configuration.debug.391128543" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="mot" artifactName="Prac7" buildArtefactType="com.renesas.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=com.renesas.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf *.lst *.lis *.lpp *.map" description="" id="com.renesas.cdt.RL78.configuration.debug.391128543" name="Debug" parent="com.renesas.cdt.RL78.configuration.debug">
+					<folderInfo id="com.renesas.cdt.RL78.configuration.debug.391128543." name="/" resourcePath="">
+						<toolChain id="com.renesas.cdt.RL78.toolChain.debugConf.1276862488" name="KPIT GNURL78-ELF Toolchain" superClass="com.renesas.cdt.RL78.toolChain.debugConf">
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE" id="com.renesas.cdt.rl78.debug.win32.targetPlatform.367004567" osList="win32" superClass="com.renesas.cdt.rl78.debug.win32.targetPlatform"/>
+							<builder buildPath="${workspace_loc:/Prac7}/Debug" id="com.renesas.cdt.rl78.debug.win32.builder.Id.1966325688" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="GNU Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.renesas.cdt.rl78.debug.win32.builder.Id"/>
+							<tool command="" id="com.renesas.cdt.rl78.debug.win32.tool.libgen.Id.1148215679" name="Library Generator" superClass="com.renesas.cdt.rl78.debug.win32.tool.libgen.Id">
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.enableAll.424656361" superClass="com.renesas.cdt.core.LibraryGenerator.option.enableAll" value="true" valueType="boolean"/>
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.selectLibrary.95878102" superClass="com.renesas.cdt.core.LibraryGenerator.option.selectLibrary" value="Optimized" valueType="enumerated"/>
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.libraryType.1310879462" superClass="com.renesas.cdt.core.LibraryGenerator.option.libraryType" value="Pre-Built" valueType="enumerated"/>
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.misc10.1189753939" superClass="com.renesas.cdt.core.LibraryGenerator.option.misc10" value="true" valueType="boolean"/>
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.misc9.331125448" superClass="com.renesas.cdt.core.LibraryGenerator.option.misc9" value="true" valueType="boolean"/>
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.misc14.1242475857" superClass="com.renesas.cdt.core.LibraryGenerator.option.misc14" value="true" valueType="boolean"/>
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.userDefinedCompilerOptions.1745810176" superClass="com.renesas.cdt.core.LibraryGenerator.option.userDefinedCompilerOptions" valueType="stringList">
+									<listOptionValue builtIn="false" value="-falign-jumps"/>
+									<listOptionValue builtIn="false" value="-funit-at-a-time"/>
+								</option>
+							</tool>
+							<tool id="com.renesas.cdt.rl78.debug.win32.tool.compiler.Id.1584393129" name="Compiler" superClass="com.renesas.cdt.rl78.debug.win32.tool.compiler.Id">
+								<option defaultValue="true" id="com.renesas.cdt.core.Compiler.option.misc2.1856420792" name="Don't search standard system directories for header files(-nostdinc)" superClass="com.renesas.cdt.core.Compiler.option.misc2" valueType="boolean"/>
+								<option id="com.renesas.cdt.rl78.Debug.Compiler.option.cpuType.1889761808" superClass="com.renesas.cdt.rl78.Debug.Compiler.option.cpuType" value="RL78 - G13" valueType="enumerated"/>
+								<option id="com.renesas.cdt.rl78.Debug.Compiler.option.mmul.810302673" superClass="com.renesas.cdt.rl78.Debug.Compiler.option.mmul" value="Use RL78 hardware multiply instructions for G13" valueType="enumerated"/>
+								<option id="com.renesas.cdt.core.Compiler.option.device.877569068" superClass="com.renesas.cdt.core.Compiler.option.device" value="R5F100LE" valueType="string"/>
+								<option id="com.renesas.cdt.core.Compiler.option.includeFileDir.1047989369" superClass="com.renesas.cdt.core.Compiler.option.includeFileDir" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${TCINSTALL}/rl78-elf/optlibinc&quot;"/>
+								</option>
+								<option id="com.renesas.cdt.core.Compiler.option.CPUSeries.492555177" superClass="com.renesas.cdt.core.Compiler.option.CPUSeries" value="R5F100LE" valueType="string"/>
+								<inputType id="%Base.Compiler.C.InputType.Id.142211533" name="C Input" superClass="%Base.Compiler.C.InputType.Id"/>
+								<inputType id="Base.Compiler.CPP.InputType.Id.1815144063" name="C++ Input" superClass="Base.Compiler.CPP.InputType.Id"/>
+							</tool>
+							<tool id="com.renesas.cdt.rl78.debug.win32.tool.assembler.Id.1342939424" name="Assembler" superClass="com.renesas.cdt.rl78.debug.win32.tool.assembler.Id">
+								<option id="com.renesas.cdt.core.Assembler.option.includeFileDirectories.605869067" superClass="com.renesas.cdt.core.Assembler.option.includeFileDirectories" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}/src&quot;"/>
+								</option>
+								<inputType id="%Base.Assembler.inputType.Id.532744194" name="Assembler InputType" superClass="%Base.Assembler.inputType.Id"/>
+							</tool>
+							<tool command="rl78-elf-ld" id="com.renesas.cdt.rl78.debug.win32.tool.linker.Id.232882985" name="Linker" superClass="com.renesas.cdt.rl78.debug.win32.tool.linker.Id">
+								<option id="com.renesas.cdt.rl78.Debug.Linker.option.archiveSearchDirectories.2021805939" superClass="com.renesas.cdt.rl78.Debug.Linker.option.archiveSearchDirectories" valueType="stringList">
+									<listOptionValue builtIn="false" value="&quot;${TCINSTALL}/rl78-elf/lib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${TCINSTALL}/lib/gcc/rl78-elf/${GCC_VERSION}&quot;"/>
+								</option>
+								<option id="com.renesas.cdt.rl78.Debug.Linker.option.archiveLibraryFiles.612195371" superClass="com.renesas.cdt.rl78.Debug.Linker.option.archiveLibraryFiles" valueType="stringList">
+									<listOptionValue builtIn="false" value="optm"/>
+									<listOptionValue builtIn="false" value="optc"/>
+									<listOptionValue builtIn="false" value="gcc"/>
+									<listOptionValue builtIn="false" value="sim"/>
+								</option>
+								<option id="com.renesas.cdt.core.Linker.option.userDefinedOptions.1819958134" superClass="com.renesas.cdt.core.Linker.option.userDefinedOptions" valueType="stringList">
+									<listOptionValue builtIn="false" value="-e_PowerON_Reset"/>
+								</option>
+								<option id="com.renesas.cdt.core.Linker.option.linkOrderList.1951344806" superClass="com.renesas.cdt.core.Linker.option.linkOrderList" valueType="stringList">
+									<listOptionValue builtIn="false" value="&quot;.\src\Prac7.o&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;.\src\hardware_setup.o&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;.\src\interrupt_handlers.o&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;.\src\reset_program.o&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;.\src\vector_table.o&quot;"/>
+								</option>
+							</tool>
+							<tool id="com.renesas.cdt.rl78.debug.win32.tool.objcopy.Id.1143558028" name="Objcopy" superClass="com.renesas.cdt.rl78.debug.win32.tool.objcopy.Id"/>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+		<cconfiguration id="com.renesas.cdt.RL78.configuration.hardwaredebug.267130202">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.renesas.cdt.RL78.configuration.hardwaredebug.267130202" moduleId="org.eclipse.cdt.core.settings" name="HardwareDebug">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="mot" artifactName="Prac7" buildArtefactType="com.renesas.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=com.renesas.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf *.lst *.lis *.lpp *.map" description="" id="com.renesas.cdt.RL78.configuration.hardwaredebug.267130202" name="HardwareDebug" parent="com.renesas.cdt.RL78.configuration.hardwaredebug">
+					<folderInfo id="com.renesas.cdt.RL78.configuration.hardwaredebug.267130202." name="/" resourcePath="">
+						<toolChain id="com.renesas.cdt.RL78.toolChain.hardwaredebugConf.1434170081" name="KPIT GNURL78-ELF Toolchain" superClass="com.renesas.cdt.RL78.toolChain.hardwaredebugConf">
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE" id="com.renesas.cdt.rl78.hardwaredebug.win32.targetPlatform.600209271" osList="win32" superClass="com.renesas.cdt.rl78.hardwaredebug.win32.targetPlatform"/>
+							<builder buildPath="${workspace_loc:/Prac7}/HardwareDebug" id="com.renesas.cdt.rl78.hardwaredebug.win32.builder.Id.1538317098" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="GNU Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.renesas.cdt.rl78.hardwaredebug.win32.builder.Id"/>
+							<tool command="" id="com.renesas.cdt.rl78.hardwaredebug.win32.tool.libgen.Id.6831138" name="Library Generator" superClass="com.renesas.cdt.rl78.hardwaredebug.win32.tool.libgen.Id">
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.enableAll.411444688" superClass="com.renesas.cdt.core.LibraryGenerator.option.enableAll" value="true" valueType="boolean"/>
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.selectLibrary.1053866156" superClass="com.renesas.cdt.core.LibraryGenerator.option.selectLibrary" value="Optimized" valueType="enumerated"/>
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.libraryType.1314384714" superClass="com.renesas.cdt.core.LibraryGenerator.option.libraryType" value="Pre-Built" valueType="enumerated"/>
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.misc10.1526652917" superClass="com.renesas.cdt.core.LibraryGenerator.option.misc10" value="true" valueType="boolean"/>
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.misc9.53148894" superClass="com.renesas.cdt.core.LibraryGenerator.option.misc9" value="true" valueType="boolean"/>
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.misc14.1415467015" superClass="com.renesas.cdt.core.LibraryGenerator.option.misc14" value="true" valueType="boolean"/>
+								<option id="com.renesas.cdt.core.LibraryGenerator.option.userDefinedCompilerOptions.1389515376" superClass="com.renesas.cdt.core.LibraryGenerator.option.userDefinedCompilerOptions" valueType="stringList">
+									<listOptionValue builtIn="false" value="-falign-jumps"/>
+									<listOptionValue builtIn="false" value="-funit-at-a-time"/>
+								</option>
+							</tool>
+							<tool id="com.renesas.cdt.rl78.hardwaredebug.win32.tool.compiler.Id.747333172" name="Compiler" superClass="com.renesas.cdt.rl78.hardwaredebug.win32.tool.compiler.Id">
+								<option defaultValue="true" id="com.renesas.cdt.core.Compiler.option.misc2.465206214" name="Don't search standard system directories for header files(-nostdinc)" superClass="com.renesas.cdt.core.Compiler.option.misc2" valueType="boolean"/>
+								<option id="com.renesas.cdt.rl78.HardwareDebug.Compiler.option.cpuType.77813354" superClass="com.renesas.cdt.rl78.HardwareDebug.Compiler.option.cpuType" value="RL78 - G13" valueType="enumerated"/>
+								<option id="com.renesas.cdt.rl78.HardwareDebug.Compiler.option.mmul.658332503" superClass="com.renesas.cdt.rl78.HardwareDebug.Compiler.option.mmul" value="Use RL78 hardware multiply instructions for G13" valueType="enumerated"/>
+								<option id="com.renesas.cdt.core.Compiler.option.device.283000159" superClass="com.renesas.cdt.core.Compiler.option.device" value="R5F100LE" valueType="string"/>
+								<option id="com.renesas.cdt.core.Compiler.option.includeFileDir.219880153" superClass="com.renesas.cdt.core.Compiler.option.includeFileDir" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${TCINSTALL}/rl78-elf/optlibinc&quot;"/>
+								</option>
+								<option id="com.renesas.cdt.core.Compiler.option.CPUSeries.626216200" superClass="com.renesas.cdt.core.Compiler.option.CPUSeries" value="R5F100LE" valueType="string"/>
+								<inputType id="%Base.Compiler.C.InputType.Id.1330390276" name="C Input" superClass="%Base.Compiler.C.InputType.Id"/>
+								<inputType id="Base.Compiler.CPP.InputType.Id.2040555739" name="C++ Input" superClass="Base.Compiler.CPP.InputType.Id"/>
+							</tool>
+							<tool id="com.renesas.cdt.rl78.hardwaredebug.win32.tool.assembler.Id.1026374341" name="Assembler" superClass="com.renesas.cdt.rl78.hardwaredebug.win32.tool.assembler.Id">
+								<option id="com.renesas.cdt.core.Assembler.option.includeFileDirectories.456380129" superClass="com.renesas.cdt.core.Assembler.option.includeFileDirectories" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}/src&quot;"/>
+								</option>
+								<inputType id="%Base.Assembler.inputType.Id.141262894" name="Assembler InputType" superClass="%Base.Assembler.inputType.Id"/>
+							</tool>
+							<tool command="rl78-elf-ld" id="com.renesas.cdt.rl78.hardwaredebug.win32.tool.linker.Id.761006741" name="Linker" superClass="com.renesas.cdt.rl78.hardwaredebug.win32.tool.linker.Id">
+								<option id="com.renesas.cdt.rl78.HardwareDebug.Linker.option.archiveSearchDirectories.1312166549" superClass="com.renesas.cdt.rl78.HardwareDebug.Linker.option.archiveSearchDirectories" valueType="stringList">
+									<listOptionValue builtIn="false" value="&quot;${TCINSTALL}/lib/gcc/rl78-elf/${GCC_VERSION}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${TCINSTALL}/rl78-elf/lib&quot;"/>
+								</option>
+								<option id="com.renesas.cdt.rl78.HardwareDebug.Linker.option.archiveLibraryFiles.784786643" superClass="com.renesas.cdt.rl78.HardwareDebug.Linker.option.archiveLibraryFiles" valueType="stringList">
+									<listOptionValue builtIn="false" value="optm"/>
+									<listOptionValue builtIn="false" value="optc"/>
+									<listOptionValue builtIn="false" value="gcc"/>
+								</option>
+								<option id="com.renesas.cdt.core.Linker.option.userDefinedOptions.1786895359" superClass="com.renesas.cdt.core.Linker.option.userDefinedOptions" valueType="stringList">
+									<listOptionValue builtIn="false" value="-e_PowerON_Reset"/>
+								</option>
+								<option id="com.renesas.cdt.core.Linker.option.linkOrderList.725203185" superClass="com.renesas.cdt.core.Linker.option.linkOrderList" valueType="stringList">
+									<listOptionValue builtIn="false" value="&quot;.\src\Prac7.o&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;.\src\hardware_setup.o&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;.\src\interrupt_handlers.o&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;.\src\reset_program.o&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;.\src\vector_table.o&quot;"/>
+								</option>
+							</tool>
+							<tool id="com.renesas.cdt.rl78.hardwaredebug.win32.tool.objcopy.Id.1272475603" name="Objcopy" superClass="com.renesas.cdt.rl78.hardwaredebug.win32.tool.objcopy.Id"/>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="Prac7.com.renesas.cdt.RL78.projectType.482555746" name="Executable (Renesas)" projectType="com.renesas.cdt.RL78.projectType"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+</cproject>

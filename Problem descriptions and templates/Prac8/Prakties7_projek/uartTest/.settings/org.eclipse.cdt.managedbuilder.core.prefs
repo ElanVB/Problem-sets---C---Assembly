@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+environment/buildEnvironmentInclude/com.renesas.cdt.RL78.configuration.hardwaredebug.730160807/CPATH/delimiter=;
+environment/buildEnvironmentInclude/com.renesas.cdt.RL78.configuration.hardwaredebug.730160807/CPATH/operation=remove
+environment/buildEnvironmentInclude/com.renesas.cdt.RL78.configuration.hardwaredebug.730160807/C_INCLUDE_PATH/delimiter=;
+environment/buildEnvironmentInclude/com.renesas.cdt.RL78.configuration.hardwaredebug.730160807/C_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/com.renesas.cdt.RL78.configuration.hardwaredebug.730160807/append=true
+environment/buildEnvironmentInclude/com.renesas.cdt.RL78.configuration.hardwaredebug.730160807/appendContributed=true
+environment/buildEnvironmentLibrary/com.renesas.cdt.RL78.configuration.hardwaredebug.730160807/LIBRARY_PATH/delimiter=;
+environment/buildEnvironmentLibrary/com.renesas.cdt.RL78.configuration.hardwaredebug.730160807/LIBRARY_PATH/operation=remove
+environment/buildEnvironmentLibrary/com.renesas.cdt.RL78.configuration.hardwaredebug.730160807/append=true
+environment/buildEnvironmentLibrary/com.renesas.cdt.RL78.configuration.hardwaredebug.730160807/appendContributed=true

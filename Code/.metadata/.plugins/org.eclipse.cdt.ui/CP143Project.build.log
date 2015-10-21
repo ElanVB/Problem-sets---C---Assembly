@@ -1,0 +1,15 @@
+11:19:17 **** Incremental Build of configuration Debug for project CP143Project ****
+Info: Internal Builder is used for build
+gcc "-IC:\\Users\\Elan\\Desktop\\CP143Project\\libs\\curl\\include" "-IC:\\Program Files (x86)\\eclipse-cpp-luna-R-win32-x86_64\\eclipse\\MinGW\\lib\\gcc\\mingw32\\4.5.2\\include" "-IC:\\Program Files (x86)\\eclipse-cpp-luna-R-win32-x86_64\\eclipse\\MinGW\\lib\\gcc\\mingw32\\4.5.2\\include-fixed" "-IC:\\Program Files (x86)\\eclipse-cpp-luna-R-win32-x86_64\\eclipse\\MinGW\\include" -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\client.o" "..\\src\\client.c" 
+..\src\client.c: In function 'appendToLogFile':
+..\src\client.c:140:2: warning: implicit declaration of function 'close'
+..\src\client.c: In function 'dec2Hex4bit':
+..\src\client.c:195:2: warning: function returns address of local variable
+..\src\client.c: In function 'dec2Hex16bit':
+..\src\client.c:238:2: warning: function returns address of local variable
+..\src\client.c: In function 'generateEncryptionKey':
+..\src\client.c:205:8: warning: 'bigString' is used uninitialized in this function
+gcc "-LC:\\Users\\Elan\\Desktop\\CP143Project\\libs\\curl\\lib" "-LC:\\Users\\Elan\\Desktop\\CP143Project\\libs\\Debug" -o CP143Project "src\\client.o" -ltestsuite -lutils -lcurldll 
+
+11:19:18 Build Finished (took 521ms)
+

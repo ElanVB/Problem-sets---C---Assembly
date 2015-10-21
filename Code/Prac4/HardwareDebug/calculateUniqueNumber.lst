@@ -1,0 +1,63 @@
+   1                             	# 1 "../src/checksum.asm"
+   1                             	;;Elan van Biljon - 18384439
+   0                             	
+   0                             	
+   2                             	.global _generate_checksum
+   3                             	.global _validate_checksum
+   4                             	
+   5                             	_generate_checksum:
+   6                             	
+   7 0000 FB F8 FF                	movw hl, sp					;;get the location of the first character
+   8 0003 AC 04                   	movw ax, [hl + 4]
+   9 0005 16                      	movw hl, ax
+  10                             	
+  11 0006 53 00                   	mov b, #0					;;set counter to 0
+  12 0008 52 00                   	mov c, #0					;;set sub total to 0
+  13 000a 50 08                   	mov x, #8					;;set the multiplier to 8
+  14                             	
+  15                             	loop:
+  16 000c 63                      	mov a, b					;;move b to a
+  17 000d 4C 08                   	cmp a, #8					;;compar the counter to 8
+  18 000f DD 11                   	bz $setReturn				;;if it is 8 then go to the serReturn
+  19 0011 61 C9                   	mov a, [hl + b]				;;get the number (in ASCII)
+  20 0013 2C 30                   	sub a, #30H					;;convert it to its hex value
+  21 0015 D6                      	mulu x						;;multiply it with x and store in ax
+  22 0016 60                      	mov a, x					;;move the answer of the multiplication to a (this will always fit as the the highest 
+  23 0017 61 0A                   	add a, c					;;add the answer to the multiplication to the subtotal
+  24 0019 72                      	mov c, a					;;move the answer back to c
+  25 001a 83                      	inc b						;;increment b
+  26 001b 51 08                   	mov a, #8					;;the next few lines are to recalculate the multiplier
+  27 001d 61 2B                   	sub a, b
+  28 001f 70                      	mov x, a
+  29 0020 EF EA                   	br $loop					;;loop back
+  30                             	
+  31                             	
+  32                             	setReturn:
+  33 0022 62                      	mov a, c					;;move the total to a
+  34 0023 70                      	mov x, a					;;move a to x
+  35 0024 51 00                   	mov a, #0					;;clear a
+  36 0026 BD F0                   	movw 0xFFEF0, ax			;;return the total now stored in ax
+  37                             	
+  38 0028 D7                      	ret
+  39                             	
+  40                             	_validate_checksum:
+  41                             	
+  42 0029 FB F8 FF                	movw hl, sp					;;get the checksum location
+  43 002c 8C 04                   	mov a, [hl + 4]				;;move the number to a
+  44                             	
+  45                             	Vloop:
+  46 002e 4C 0B                   	cmp a, #11					;;compare a to 11
+  47 0030 DD 07                   	bz $valid					;;if a is 11 the number is valid
+  48 0032 61 D3 09                	bnh $notValid				;;if the number is smaller than 11 the number is not valid
+  49 0035 2C 0B                   	sub a, #11					;;if the number is bigger than 11 subtract 11 and loop
+  50 0037 EF F5                   	br $Vloop
+  51                             	
+  52                             	valid:
+  53 0039 CD F0 01                	mov 0xFFEF0, #1				;;if valid return a 1
+  54 003c EF 03                   	br $done
+  55                             	
+  56                             	notValid:
+  57 003e CD F0 00                	mov 0xFFEF0, #0				;;if not valid return a 0
+  58                             	
+  59                             	done:
+  60 0041 D7                      	ret

@@ -1,0 +1,50 @@
+   1                             	# 1 "../src/changecase.asm"
+   1                             	.global _changecase
+   0                             	
+   0                             	
+   2                             	
+   3                             	_changecase:
+   4                             	
+   5 0000 FB F8 FF                	movw hl, sp
+   6 0003 AC 04                   	movw ax, [hl + 4]
+   7 0005 16                      	movw hl, ax
+   8                             	
+   9                             	loop:
+  10 0006 8B                      	mov a, [hl]				;;put the next letter in the a register where comparisons take place
+  11 0007 D1                      	cmp0 a					;;subtracts the second value from the first and sets the flags - if result is 0 the z fl
+  12 0008 DD 22                   	bz $end					;;jumps to the end of the program if the z flag is set to 1
+  13                             	
+  14                             							;;compare letter to 41 if higher -> compare to 5A if higher -> compare to 61 if higher -> com
+  15                             							;;					   if lower  -> ignore		  if lower  -> add 20		 if lower  -> ignore		if lower  -> subt
+  16                             							;;I might have to store each char in the next adress relative to the 0xFFEF0 memory address..
+  17                             	
+  18                             							;;cmp a, c			when a is bigger than c, it will jump to the some code option
+  19                             							;;bh $somecode
+  20                             	
+  21 000a 4C 40                   	cmp a, #'@'				;;compare letter to 40
+  22 000c 61 C3 02                	bh	$biggerFour			;;if the letter is bigger than forty then jump to the biggerFour section
+  23 000f EF 17                   	br $skip				;;else skip to the end of the loop
+  24                             	
+  25                             	biggerFour:				;;this piece of code is called if the letter is bigger than 40
+  26 0011 4C 5A                   	cmp a, #'Z'				;;compare the letter to 5A
+  27 0013 61 C3 04                	bh $biggerFive			;;if the letter is bigger than 5A then jump to the biggerFive section
+  28 0016 0C 20                   	add a, #20H				;;otherwise add 20 to the letter
+  29 0018 EF 0E                   	br $skip				;;and go to the end of the loop
+  30                             	
+  31                             	biggerFive:				;;this section is called if the letter is bigger than 5A
+  32 001a 4C 60                   	cmp a, #'`'				;;compare the letter to 60
+  33 001c 61 C3 02                	bh $biggerSix			;;if the letter is bigger than 60 jump to the biggerSix section
+  34 001f EF 07                   	br $skip				;;otherwise jump to the end of the loop
+  35                             	
+  36                             	biggerSix:				;;this section is called if the letter is bigger than 60
+  37 0021 4C 7A                   	cmp a, #'z'				;;compare the letter to 7A
+  38 0023 61 C3 02                	bh $skip				;;if the letter is bigger than 7A jump to the end of the loop
+  39 0026 2C 20                   	sub a, #20H				;;otherwise subtract 20 from the letter
+  40                             	
+  41                             	skip:
+  42 0028 9B                      	mov [hl], a				;;store the character in memory
+  43 0029 A7                      	incw hl 				;;increments hl
+  44 002a EF DA                   	br $loop				;;jumps to the top of the loop
+  45                             	
+  46                             	end:
+  47 002c D7                      	ret

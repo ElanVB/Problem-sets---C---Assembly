@@ -1,0 +1,21 @@
+08:34:32 **** Incremental Build of configuration HardwareDebug for project Prac5 ****
+make -j4 all 
+'Scanning and building file: ../src/Prac5.c'
+'Invoking: Scanner and Compiler'
+rl78-elf-gcc -MM -MP -MF "src/Prac5.d" -MT"src/Prac5.o" -MT"src/Prac5.d"  -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -x c "../src/Prac5.c"
+rl78-elf-gcc -Wa,-adlhn="Prac5.lst" -nostdinc -I"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/optlibinc" -g2 -g -mmul=g13 -c -x c -o "src/Prac5.o" "../src/Prac5.c"
+'Finished scanning and building: ../src/Prac5.c'
+
+'Invoking: Linker'
+'Building target:'
+rl78-elf-ld -o "Prac5.x" -T"C:\Users\Elan\Google Drive\Second Year Engineering\E en E\CS semseter 2\Prakties\2015\Code\Prac5\HardwareDebug\Prac5_HardwareDebug_auto.gsi" -T"C:\Users\Elan\Google Drive\Second Year Engineering\E en E\CS semseter 2\Prakties\2015\Code\Prac5\HardwareDebug\LinkerSubCommand.tmp"    -M=Prac5.map -e_PowerON_Reset -L"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/lib/gcc/rl78-elf/4.8-GNURL78_v14.01" -L"C:\PROGRA~2\KPIT\GNURL7~1.01-\rl78-ELF/rl78-elf/lib" --start-group -loptm -loptc -lgcc --end-group
+'Finished building:'
+
+'Invoking: Objcopy'
+rl78-elf-objcopy -O srec   Prac5.x "Prac5.mot"
+'Finished building target:'
+
+'Build complete.'
+
+08:34:33 Build Finished (took 833ms)
+
